@@ -1,10 +1,18 @@
 #!/bin/bash
 
 # enter regen to regenerate the data
+# enter download to download new data
 mode="$1"
 
 html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
-basics_file=./data/title.basics.tsv
+
+download_data() {
+    cd ./raw_data/
+    wget -P https://datasets.imdbws.com/title.basics.tsv.gz && unpigz title.basics.tsv.gz
+
+    cd ..
+    basics_file=./raw_data/title.basics.tsv
+}
 
 find_ids() {
     # find all IMDb IDs
@@ -21,6 +29,8 @@ find_genres() {
 if [ "$mode" == 'regen' ]; then
     find_ids
     find_genres
+elif [ "$mode" == 'download' ]; then
+    download_data
 fi
 
 # display the number of movies from every genre
