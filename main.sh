@@ -17,3 +17,6 @@ if [ "$mode" == 'regen' ]; then
     done
 fi
 
+# display the number of movies from every genre
+sort genres | uniq -c
+
