@@ -51,15 +51,20 @@ show_genres() {
     sort "$genres_file" | uniq -c | sort -nr
 }
 
+calc_hours_and_minutes() {
+    minutes=$1
+
+    ((hours=$minutes/60))
+    ((minutes=$minutes%60))
+}
+
 show_runtimes() {
     total_minutes=$(awk '{ s+=$1 } END { print s }' "$runtimes_file")
-    ((hours=$total_minutes/60))
-    ((minutes=$total_minutes%60))
+    calc_hours_and_minutes $total_minutes
     echo "I've watched movies for a total of $hours hours and $minutes minutes."
 
     longest_minutes=$(sort -n "$runtimes_file" | tail -n 1)
-    ((hours=$longest_minutes/60))
-    ((minutes=$longest_minutes%60))
+    calc_hours_and_minutes $longest_minutes
     echo "Longest movie: $hours hours and $minutes minutes."
 }
 
