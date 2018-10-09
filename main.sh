@@ -51,3 +51,10 @@ show_genres() {
     sort "$genres_file" | uniq -c | sort -nr
 }
 
+show_runtimes() {
+    total_minutes=$(awk '{ s+=$1 } END { print s }' "$runtimes_file")
+    ((hours=$total_minutes/60))
+    ((minutes=$total_minutes%60))
+    echo "I've watched movies for a total of $hours hours and $minutes minutes."
+}
+
