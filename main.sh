@@ -23,7 +23,7 @@ find_ids() {
 }
 
 find_genres() {
-    for id in "${ids[@]}"; do
+    for id in $(bat "$ids_file"); do
         # finds the main genre
        rg "$id" "$basics_file" | awk -F"\t" '{ print $9 }' | awk -F',' '{ print $1 }' >> ./processed_data/genres
     done
