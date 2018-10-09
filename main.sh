@@ -29,9 +29,17 @@ find_genres() {
     done
 }
 
+find_runtimes() {
+    for id in $(bat "$ids_file"); do
+        # finds the runtimes in minutes
+        rg "$id" "$basics_file" | awk -F"\t" '{ print $8 }' >> ./processed_data/runtimes
+    done
+}
+
 if [ "$mode" == 'regen' ]; then
     find_ids
     find_genres
+    find_runtimes
 elif [ "$mode" == 'download' ]; then
     download_data
 fi
