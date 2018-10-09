@@ -5,6 +5,8 @@
 mode="$1"
 
 html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
+# basic movie information
+basics_file=./raw_data/title.basics.tsv
 
 download_data() {
     wget -P ~/Desktop/ 'https://datasets.imdbws.com/title.basics.tsv.gz' &&
@@ -12,8 +14,6 @@ download_data() {
 
     cd ./raw_data/
     ln -s ~/Desktop/title.basics.tsv 2>/dev/null
-    cd ..
-    basics_file=./raw_data/title.basics.tsv
 }
 
 find_ids() {
