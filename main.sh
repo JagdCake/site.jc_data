@@ -46,6 +46,8 @@ elif [ "$mode" == 'download' ]; then
     download_data
 fi
 
-# display the number of movies from every genre
-sort genres | uniq -c
+show_genres() {
+    # display the number of movies from every genre
+    sort "$genres_file" | uniq -c
+}
 
