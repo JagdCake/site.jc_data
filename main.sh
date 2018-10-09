@@ -6,6 +6,8 @@ mode="$1"
 
 html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
 ids_file=./processed_data/ids
+genres_file=./processed_data/genres
+runtimes_file=./processed_data/runtimes
 # basic movie information
 basics_file=./raw_data/title.basics.tsv
 
@@ -19,20 +21,20 @@ download_data() {
 
 find_ids() {
     # find all IMDb IDs
-    rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$html_file" | awk -F'/' '{ print $1 }' >> ./processed_data/ids
+    rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$html_file" | awk -F'/' '{ print $1 }' >> "$ids_file"
 }
 
 find_genres() {
     for id in $(bat "$ids_file"); do
         # finds the main genre
-       rg "$id" "$basics_file" | awk -F"\t" '{ print $9 }' | awk -F',' '{ print $1 }' >> ./processed_data/genres
+       rg "$id" "$basics_file" | awk -F"\t" '{ print $9 }' | awk -F',' '{ print $1 }' >> "$genres_file"
     done
 }
 
 find_runtimes() {
     for id in $(bat "$ids_file"); do
         # finds the runtimes in minutes
-        rg "$id" "$basics_file" | awk -F"\t" '{ print $8 }' >> ./processed_data/runtimes
+        rg "$id" "$basics_file" | awk -F"\t" '{ print $8 }' >> "$runtimes_file"
     done
 }
 
