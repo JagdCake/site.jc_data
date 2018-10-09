@@ -10,6 +10,8 @@ download_data() {
     wget -P ~/Desktop/ 'https://datasets.imdbws.com/title.basics.tsv.gz' &&
     unpigz ~/Desktop/title.basics.tsv.gz
 
+    cd ./raw_data/
+    ln -s ~/Desktop/title.basics.tsv 2>/dev/null
     cd ..
     basics_file=./raw_data/title.basics.tsv
 }
