@@ -2,6 +2,7 @@
 
 # enter regen to regenerate the data
 # enter download to download new data
+# enter show to display the collected data
 mode="$1"
 
 html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
@@ -38,14 +39,6 @@ find_runtimes() {
     done
 }
 
-if [ "$mode" == 'regen' ]; then
-    find_ids
-    find_genres
-    find_runtimes
-elif [ "$mode" == 'download' ]; then
-    download_data
-fi
-
 show_genres() {
     # display the number (from highest to lowest) of movies from every genre
     sort "$genres_file" | uniq -c | sort -nr
@@ -72,4 +65,16 @@ show_runtimes() {
     calc_hours_and_minutes $average_in_minutes
     echo "Average runtime: $hours hours $minutes minutes."
 }
+
+
+if [ "$mode" == 'regen' ]; then
+    find_ids
+    find_genres
+    find_runtimes
+elif [ "$mode" == 'download' ]; then
+    download_data
+elif [ "$mode" == 'show' ]; then
+    show_genres
+    show_runtimes
+fi
 
