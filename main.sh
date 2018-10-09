@@ -7,8 +7,8 @@ mode="$1"
 html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
 
 download_data() {
-    cd ./raw_data/
-    wget -P https://datasets.imdbws.com/title.basics.tsv.gz && unpigz title.basics.tsv.gz
+    wget -P ~/Desktop/ 'https://datasets.imdbws.com/title.basics.tsv.gz' &&
+    unpigz ~/Desktop/title.basics.tsv.gz
 
     cd ..
     basics_file=./raw_data/title.basics.tsv
