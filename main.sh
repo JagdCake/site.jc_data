@@ -47,7 +47,7 @@ elif [ "$mode" == 'download' ]; then
 fi
 
 show_genres() {
-    # display the number of movies from every genre
-    sort "$genres_file" | uniq -c
+    # display the number (from highest to lowest) of movies from every genre
+    sort "$genres_file" | uniq -c | sort -nr
 }
 
