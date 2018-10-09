@@ -5,6 +5,7 @@
 mode="$1"
 
 html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
+ids_file=./processed_data/ids
 # basic movie information
 basics_file=./raw_data/title.basics.tsv
 
@@ -18,7 +19,7 @@ download_data() {
 
 find_ids() {
     # find all IMDb IDs
-    ids=($(rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$html_file" | awk -F'/' '{ print $1 }'))
+    rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$html_file" | awk -F'/' '{ print $1 }' >> ./processed_data/ids
 }
 
 find_genres() {
