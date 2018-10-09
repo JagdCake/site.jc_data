@@ -56,5 +56,10 @@ show_runtimes() {
     ((hours=$total_minutes/60))
     ((minutes=$total_minutes%60))
     echo "I've watched movies for a total of $hours hours and $minutes minutes."
+
+    longest_minutes=$(sort -n "$runtimes_file" | tail -n 1)
+    ((hours=$longest_minutes/60))
+    ((minutes=$longest_minutes%60))
+    echo "Longest movie: $hours hours and $minutes minutes."
 }
 
