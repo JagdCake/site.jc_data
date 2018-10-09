@@ -5,12 +5,14 @@
 # enter show to display the collected data
 mode="$1"
 
+### File Paths ###
 html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
 ids_file=./processed_data/ids
 genres_file=./processed_data/genres
 runtimes_file=./processed_data/runtimes
 # basic movie information
 basics_file=./raw_data/title.basics.tsv
+### ###
 
 download_data() {
     wget -P ~/Desktop/ 'https://datasets.imdbws.com/title.basics.tsv.gz' &&
