@@ -16,10 +16,12 @@ years_file=./processed_data/years
 basics_file=./raw_data/title.basics.tsv
 # ids of the director(s) and writer(s)
 crew_ids_file=./raw_data/title.crew.tsv
+# basic person information
+names_file=./raw_data/name.basics.tsv
 ### ###
 
 download_data() {
-    datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz')
+    datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz' 'https://datasets.imdbws.com/name.basics.tsv.gz')
 
     for datafile in "${datafiles[@]}"; do
         wget -P ~/Desktop/ "$datafile"
