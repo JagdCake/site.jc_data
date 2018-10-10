@@ -8,6 +8,7 @@ mode="$1"
 ### File Paths ###
 html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
 ids_file=./processed_data/ids
+director_ids_file=./processed_data/director_ids
 genres_file=./processed_data/genres
 runtimes_file=./processed_data/runtimes
 years_file=./processed_data/years
@@ -32,6 +33,13 @@ download_data() {
 find_ids() {
     # find all IMDb IDs
     rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$html_file" | awk -F'/' '{ print $1 }' >> "$ids_file"
+}
+
+find_director_ids() {
+    for id in $(bat "$ids_file"); do
+        # finds the IDs of directors
+        rg "$id" "$crew_ids_file" | awk -F"\t" '{ print $2 }' >> "$director_ids_file"
+    done
 }
 
 find_genres() {
