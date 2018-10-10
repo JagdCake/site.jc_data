@@ -51,9 +51,12 @@ find_years() {
 
 show_number_of() {
     x_file="$1"
+    # total number of items to display
+    # (enter a number higher than the amount of items to show all items)
+    total=$2
 
     # display the number (from highest to lowest) of movies for every X property
-    sort "$x_file" | uniq -c | sort -nr
+    sort "$x_file" | uniq -c | sort -nr | head -n $total
 }
 
 calc_hours_and_minutes() {
@@ -86,8 +89,8 @@ if [ "$mode" == 'regen' ]; then
 elif [ "$mode" == 'download' ]; then
     download_data
 elif [ "$mode" == 'show' ]; then
-    show_number_of "$genres_file"
-    show_number_of "$years_file"
+    show_number_of "$genres_file" 3
+    show_number_of "$years_file" 3
     show_runtimes
 fi
 
