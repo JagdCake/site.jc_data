@@ -40,6 +40,8 @@ find_director_ids() {
         # finds the IDs of directors
         rg "$id" "$crew_ids_file" | awk -F"\t" '{ print $2 }' >> "$director_ids_file"
     done
+
+    sed -i 's/,/\n/g' "$director_ids_file"
 }
 
 find_genres() {
