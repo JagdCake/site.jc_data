@@ -101,6 +101,7 @@ show_runtimes() {
 
 if [ "$mode" == 'regen' ]; then
     find_ids
+    find_director_ids
     find_genres
     find_runtimes
     find_years
