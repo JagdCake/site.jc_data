@@ -13,6 +13,8 @@ runtimes_file=./processed_data/runtimes
 years_file=./processed_data/years
 # basic movie information
 basics_file=./raw_data/title.basics.tsv
+# ids of the director(s) and writer(s)
+crew_ids_file=./raw_data/title.crew.tsv
 ### ###
 
 download_data() {
