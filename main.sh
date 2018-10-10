@@ -10,6 +10,7 @@ html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
 ids_file=./processed_data/ids
 genres_file=./processed_data/genres
 runtimes_file=./processed_data/runtimes
+years_file=./processed_data/years
 # basic movie information
 basics_file=./raw_data/title.basics.tsv
 ### ###
@@ -38,6 +39,13 @@ find_runtimes() {
     for id in $(bat "$ids_file"); do
         # finds the runtimes in minutes
         rg "$id" "$basics_file" | awk -F"\t" '{ print $8 }' >> "$runtimes_file"
+    done
+}
+
+find_years() {
+    for id in $(bat "$ids_file"); do
+        # finds the release year
+        rg "$id" "$basics_file" | awk -F"\t" '{ print $6 }' >> "$years_file"
     done
 }
 
@@ -73,6 +81,7 @@ if [ "$mode" == 'regen' ]; then
     find_ids
     find_genres
     find_runtimes
+    find_years
 elif [ "$mode" == 'download' ]; then
     download_data
 elif [ "$mode" == 'show' ]; then
