@@ -8,32 +8,34 @@ mode="$1"
 ### File Paths ###
 movies_html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
 
-movie_ids_file=./processed_data/movie_ids
-director_ids_file=./processed_data/director_ids
+processed_data_dir="$(pwd)/processed_data/"
+movie_ids_file="$processed_data_dir"/movie_ids
+director_ids_file="$processed_data_dir"/director_ids
 
-genres_file=./processed_data/genres
-runtimes_file=./processed_data/runtimes
-years_file=./processed_data/years
+genres_file="$processed_data_dir"/genres
+runtimes_file="$processed_data_dir"/runtimes
+years_file="$processed_data_dir"/years
 
 # datafiles
+raw_data_storage_dir=~/Desktop/
+raw_data_dir="$(pwd)/raw_data/"
 # basic movie information
-basics_data=./raw_data/title.basics.tsv
+basics_data="$raw_data_dir"/title.basics.tsv
 # ids of the director(s) and writer(s)
-crew_data=./raw_data/title.crew.tsv
+crew_data="$raw_data_dir"/title.crew.tsv
 # basic person information
-names_data=./raw_data/name.basics.tsv
+names_data="$raw_data_dir"/name.basics.tsv
 ### ###
 
 download_data() {
     datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz' 'https://datasets.imdbws.com/name.basics.tsv.gz')
 
     for datafile in "${datafiles[@]}"; do
-        wget -P ~/Desktop/ "$datafile"
+        wget -P "$raw_data_storage_dir"/ "$datafile"
     done &&
-    unpigz ~/Desktop/*.tsv.gz
+    unpigz "$raw_data_storage_dir"/*.tsv.gz &&
 
-    cd ./raw_data/
-    ln -s ~/Desktop/*.tsv 2>/dev/null
+    ln -s "$raw_data_storage_dir"/*.tsv "$raw_data_dir"/
 }
 
 find_movie_ids() {
