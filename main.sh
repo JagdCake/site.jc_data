@@ -16,11 +16,15 @@ basics_file=./raw_data/title.basics.tsv
 ### ###
 
 download_data() {
-    wget -P ~/Desktop/ 'https://datasets.imdbws.com/title.basics.tsv.gz' &&
-    unpigz ~/Desktop/title.basics.tsv.gz
+    datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz')
+
+    for datafile in "${datafiles[@]}"; do
+        wget -P ~/Desktop/ "$datafile"
+    done &&
+    unpigz ~/Desktop/*.tsv.gz
 
     cd ./raw_data/
-    ln -s ~/Desktop/title.basics.tsv 2>/dev/null
+    ln -s ~/Desktop/*.tsv 2>/dev/null
 }
 
 find_ids() {
