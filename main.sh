@@ -6,18 +6,22 @@
 mode="$1"
 
 ### File Paths ###
-html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
-ids_file=./processed_data/ids
+movies_html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
+
+movie_ids_file=./processed_data/movie_ids
 director_ids_file=./processed_data/director_ids
+
 genres_file=./processed_data/genres
 runtimes_file=./processed_data/runtimes
 years_file=./processed_data/years
+
+# datafiles
 # basic movie information
-basics_file=./raw_data/title.basics.tsv
+basics_data=./raw_data/title.basics.tsv
 # ids of the director(s) and writer(s)
-crew_ids_file=./raw_data/title.crew.tsv
+crew_data=./raw_data/title.crew.tsv
 # basic person information
-names_file=./raw_data/name.basics.tsv
+names_data=./raw_data/name.basics.tsv
 ### ###
 
 download_data() {
@@ -32,38 +36,38 @@ download_data() {
     ln -s ~/Desktop/*.tsv 2>/dev/null
 }
 
-find_ids() {
+find_movie_ids() {
     # find all IMDb IDs
-    rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$html_file" | awk -F'/' '{ print $1 }' >> "$ids_file"
+    rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$html_file" | awk -F'/' '{ print $1 }' >> "$movie_ids_file"
 }
 
 find_director_ids() {
-    for id in $(bat "$ids_file"); do
+    for id in $(bat "$movie_ids_file"); do
         # finds the IDs of directors
-        rg "$id" "$crew_ids_file" | awk -F"\t" '{ print $2 }' >> "$director_ids_file"
+        rg "$id" "$crew_data" | awk -F"\t" '{ print $2 }' >> "$director_ids_file"
     done
 
     sed -i 's/,/\n/g' "$director_ids_file"
 }
 
 find_genres() {
-    for id in $(bat "$ids_file"); do
+    for id in $(bat "$movie_ids_file"); do
         # finds the main genre
-       rg "$id" "$basics_file" | awk -F"\t" '{ print $9 }' | awk -F',' '{ print $1 }' >> "$genres_file"
+       rg "$id" "$basics_data" | awk -F"\t" '{ print $9 }' | awk -F',' '{ print $1 }' >> "$genres_file"
     done
 }
 
 find_runtimes() {
-    for id in $(bat "$ids_file"); do
+    for id in $(bat "$movie_ids_file"); do
         # finds the runtimes in minutes
-        rg "$id" "$basics_file" | awk -F"\t" '{ print $8 }' >> "$runtimes_file"
+        rg "$id" "$basics_data" | awk -F"\t" '{ print $8 }' >> "$runtimes_file"
     done
 }
 
 find_years() {
-    for id in $(bat "$ids_file"); do
+    for id in $(bat "$movie_ids_file"); do
         # finds the release year
-        rg "$id" "$basics_file" | awk -F"\t" '{ print $6 }' >> "$years_file"
+        rg "$id" "$basics_data" | awk -F"\t" '{ print $6 }' >> "$years_file"
     done
 }
 
