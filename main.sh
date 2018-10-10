@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# enter regen to regenerate the data
-# enter download to download new data
-# enter show to display the collected data
+# enter "download" to download data
+# enter "generate" to generate data
+# enter "show" to display the collected data
 mode="$1"
 
 ### File Paths ###
@@ -103,14 +103,14 @@ show_runtimes() {
     echo "Average runtime: $hours hours $minutes minutes."
 }
 
-if [ "$mode" == 'regen' ]; then
-    find_ids
+if [ "$mode" == 'download' ]; then
+    download_data
+elif [ "$mode" == 'generate' ]; then
+    find_movie_ids
     find_director_ids
     find_genres
     find_runtimes
     find_years
-elif [ "$mode" == 'download' ]; then
-    download_data
 elif [ "$mode" == 'show' ]; then
     show_number_of "$genres_file" 3
     show_number_of "$years_file" 3
