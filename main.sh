@@ -49,9 +49,11 @@ find_years() {
     done
 }
 
-show_genres() {
-    # display the number (from highest to lowest) of movies from every genre
-    sort "$genres_file" | uniq -c | sort -nr
+show_number_of() {
+    x_file="$1"
+
+    # display the number (from highest to lowest) of movies for every X property
+    sort "$x_file" | uniq -c | sort -nr
 }
 
 calc_hours_and_minutes() {
@@ -76,7 +78,6 @@ show_runtimes() {
     echo "Average runtime: $hours hours $minutes minutes."
 }
 
-
 if [ "$mode" == 'regen' ]; then
     find_ids
     find_genres
@@ -85,7 +86,8 @@ if [ "$mode" == 'regen' ]; then
 elif [ "$mode" == 'download' ]; then
     download_data
 elif [ "$mode" == 'show' ]; then
-    show_genres
+    show_number_of "$genres_file"
+    show_number_of "$years_file"
     show_runtimes
 fi
 
