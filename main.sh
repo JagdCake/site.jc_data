@@ -43,34 +43,50 @@ find_movie_ids() {
     rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$html_file" | awk -F'/' '{ print $1 }' >> "$movie_ids_file"
 }
 
-find_director_ids() {
-    for id in $(bat "$movie_ids_file"); do
-        # finds the IDs of directors
-        rg "$id" "$crew_data" | awk -F"\t" '{ print $2 }' >> "$director_ids_file"
-    done
-
-    sed -i 's/,/\n/g' "$director_ids_file"
-}
-
-find_genres() {
-    for id in $(bat "$movie_ids_file"); do
+select_the_property() {
+    if [ "$property" == 'director IDs' ]; then
+        # finds the IDs of all directors
+        awk -F"\t" '{ print $2 }'
+    elif [ "$property" == 'genres' ]; then
         # finds the main genre
-       rg "$id" "$basics_data" | awk -F"\t" '{ print $9 }' | awk -F',' '{ print $1 }' >> "$genres_file"
-    done
-}
-
-find_runtimes() {
-    for id in $(bat "$movie_ids_file"); do
+        awk -F"\t" '{ print $9 }' | awk -F"," '{ print $1 }'
+    elif [ "$property" == 'runtimes' ]; then
         # finds the runtimes in minutes
-        rg "$id" "$basics_data" | awk -F"\t" '{ print $8 }' >> "$runtimes_file"
-    done
+        awk -F"\t" '{ print $8 }'
+    elif [ "$property" == 'years' ]; then
+        # finds the release year
+        awk -F"\t" '{ print $6 }'
+    fi
 }
 
-find_years() {
-    for id in $(bat "$movie_ids_file"); do
-        # finds the release year
-        rg "$id" "$basics_data" | awk -F"\t" '{ print $6 }' >> "$years_file"
+find_the_property() {
+    property="$1"
+
+    if [ "$property" == 'director IDs' ]; then
+        ids_file="$movie_ids_file"
+        datafile="$crew_data"
+        output_file="$director_ids_file"
+    elif [ "$property" == 'genres' ]; then
+        ids_file="$movie_ids_file"
+        datafile="$basics_data"
+        output_file="$genres_file"
+    elif [ "$property" == 'runtimes' ]; then
+        ids_file="$movie_ids_file"
+        datafile="$basics_data"
+        output_file="$runtimes_file"
+    elif [ "$property" == 'years' ]; then
+        ids_file="$movie_ids_file"
+        datafile="$basics_data"
+        output_file="$years_file"
+    fi
+
+    for id in $(bat "$ids_file"); do
+        rg -N "$id" "$datafile" | select_the_property >> "$output_file"
     done
+
+    if [ "$property" == 'director IDs' ]; then
+        sed -i 's/,/\n/g' "$director_ids_file"
+    fi
 }
 
 show_number_of() {
@@ -109,10 +125,10 @@ if [ "$mode" == 'download' ]; then
     download_data
 elif [ "$mode" == 'generate' ]; then
     find_movie_ids
-    find_director_ids
-    find_genres
-    find_runtimes
-    find_years
+    find_the_property 'director IDs'
+    find_the_property 'genres'
+    find_the_property 'runtimes'
+    find_the_property 'years'
 elif [ "$mode" == 'show' ]; then
     show_number_of "$genres_file" 3
     show_number_of "$years_file" 3
