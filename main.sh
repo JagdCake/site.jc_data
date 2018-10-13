@@ -89,6 +89,7 @@ find_the_property() {
     fi
 
     for id in $(bat "$ids_file"); do
+        # adding the '-N' flag seems to make ripgrep a bit faster
         rg -N "$id" "$datafile" | select_the_property >> "$output_file"
     done
 
