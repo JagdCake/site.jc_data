@@ -167,10 +167,10 @@ elif [ "$mode" == 'generate' ]; then
     find_the_property 'actor IDs'
     find_the_property 'actors'
 elif [ "$mode" == 'show' ]; then
-    show_number_of "$genres_file" 3
-    show_number_of "$years_file" 3
+    show_number_of "$genres_file" 10
+    show_number_of "$years_file" 10
     show_runtimes
-    show_number_of "$directors_file" 3
-    show_number_of "$actors_file" 3
+    show_number_of "$directors_file" 10
+    show_number_of "$actors_file" 10
 fi
 
