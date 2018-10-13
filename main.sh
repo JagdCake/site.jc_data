@@ -171,5 +171,6 @@ elif [ "$mode" == 'show' ]; then
     show_number_of "$years_file" 3
     show_runtimes
     show_number_of "$directors_file" 3
+    show_number_of "$actors_file" 3
 fi
 
