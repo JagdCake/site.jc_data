@@ -17,6 +17,7 @@ genres_file="$processed_data_dir"/genres
 runtimes_file="$processed_data_dir"/runtimes
 years_file="$processed_data_dir"/years
 directors_file="$processed_data_dir"/directors
+actors_file="$processed_data_dir"/actors
 
 # datafiles
 raw_data_storage_dir=~/Desktop/
@@ -66,6 +67,9 @@ select_the_property() {
     elif [ "$property" == 'actor IDs' ]; then
         # finds the IDs of the 2 top billed actors
         awk -F"\t" '{ print $3 }'
+    elif [ "$property" == 'actors' ]; then
+        # finds the names of the 2 top billed actors
+        awk -F"\t" '{ print $2 }'
     fi
 }
 
@@ -96,6 +100,10 @@ find_the_property() {
         ids_file="$movie_ids_file"
         datafile="$cast_data"
         output_file="$actor_ids_file"
+    elif [ "$property" == 'actors' ]; then
+        ids_file="$actor_ids_file"
+        datafile="$names_data"
+        output_file="$actors_file"
     fi
 
     if [ "$property" != 'actor IDs' ]; then
@@ -157,6 +165,7 @@ elif [ "$mode" == 'generate' ]; then
     find_the_property 'years'
     find_the_property 'directors'
     find_the_property 'actor IDs'
+    find_the_property 'actors'
 elif [ "$mode" == 'show' ]; then
     show_number_of "$genres_file" 3
     show_number_of "$years_file" 3
