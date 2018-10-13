@@ -26,10 +26,12 @@ basics_data="$raw_data_dir"/title.basics.tsv
 crew_data="$raw_data_dir"/title.crew.tsv
 # basic person information
 names_data="$raw_data_dir"/name.basics.tsv
+# cast IDs and character names
+cast_data="$raw_data_dir"/title.principals.tsv
 ### ###
 
 download_data() {
-    datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz' 'https://datasets.imdbws.com/name.basics.tsv.gz')
+    datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz' 'https://datasets.imdbws.com/name.basics.tsv.gz' 'https://datasets.imdbws.com/title.principals.tsv.gz')
 
     for datafile in "${datafiles[@]}"; do
         wget -P "$raw_data_storage_dir"/ "$datafile"
