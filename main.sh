@@ -15,6 +15,7 @@ director_ids_file="$processed_data_dir"/director_ids
 genres_file="$processed_data_dir"/genres
 runtimes_file="$processed_data_dir"/runtimes
 years_file="$processed_data_dir"/years
+directors_file="$processed_data_dir"/directors
 
 # datafiles
 raw_data_storage_dir=~/Desktop/
@@ -56,6 +57,9 @@ select_the_property() {
     elif [ "$property" == 'years' ]; then
         # finds the release year
         awk -F"\t" '{ print $6 }'
+    elif [ "$property" == 'directors' ]; then
+        # finds the name of every director
+        awk -F"\t" '{ print $2 }'
     fi
 }
 
@@ -78,6 +82,10 @@ find_the_property() {
         ids_file="$movie_ids_file"
         datafile="$basics_data"
         output_file="$years_file"
+    elif [ "$property" == 'directors' ]; then
+        ids_file="$director_ids_file"
+        datafile="$names_data"
+        output_file="$directors_file"
     fi
 
     for id in $(bat "$ids_file"); do
@@ -129,6 +137,7 @@ elif [ "$mode" == 'generate' ]; then
     find_the_property 'genres'
     find_the_property 'runtimes'
     find_the_property 'years'
+    find_the_property 'directors'
 elif [ "$mode" == 'show' ]; then
     show_number_of "$genres_file" 3
     show_number_of "$years_file" 3
