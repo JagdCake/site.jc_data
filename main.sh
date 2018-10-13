@@ -11,6 +11,7 @@ movies_html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
 processed_data_dir="$(pwd)/processed_data/"
 movie_ids_file="$processed_data_dir"/movie_ids
 director_ids_file="$processed_data_dir"/director_ids
+actor_ids_file="$processed_data_dir"/actor_ids
 
 genres_file="$processed_data_dir"/genres
 runtimes_file="$processed_data_dir"/runtimes
@@ -62,6 +63,9 @@ select_the_property() {
     elif [ "$property" == 'directors' ]; then
         # finds the name of every director
         awk -F"\t" '{ print $2 }'
+    elif [ "$property" == 'actor IDs' ]; then
+        # finds the IDs of the 2 top billed actors
+        awk -F"\t" '{ print $3 }'
     fi
 }
 
@@ -88,12 +92,23 @@ find_the_property() {
         ids_file="$director_ids_file"
         datafile="$names_data"
         output_file="$directors_file"
+    elif [ "$property" == 'actor IDs' ]; then
+        ids_file="$movie_ids_file"
+        datafile="$cast_data"
+        output_file="$actor_ids_file"
     fi
 
-    for id in $(bat "$ids_file"); do
-        # adding the '-N' flag seems to make ripgrep a bit faster
-        rg -N "$id" "$datafile" | select_the_property >> "$output_file"
-    done
+    if [ "$property" != 'actor IDs' ]; then
+        for id in $(bat "$ids_file"); do
+            # adding the '-N' flag seems to make ripgrep a bit faster
+            rg -N "$id" "$datafile" | select_the_property >> "$output_file"
+        done
+    else
+        for id in $(bat "$ids_file"); do
+            # search for the 2 top billed actors by their 'order' (1 and 2)
+            rg -N -e ""$id"\t(1\t|2)" "$datafile" | select_the_property >> "$output_file"
+        done
+    fi
 
     if [ "$property" == 'director IDs' ]; then
         sed -i 's/,/\n/g' "$director_ids_file"
@@ -141,6 +156,7 @@ elif [ "$mode" == 'generate' ]; then
     find_the_property 'runtimes'
     find_the_property 'years'
     find_the_property 'directors'
+    find_the_property 'actor IDs'
 elif [ "$mode" == 'show' ]; then
     show_number_of "$genres_file" 3
     show_number_of "$years_file" 3
