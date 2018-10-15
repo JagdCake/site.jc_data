@@ -40,11 +40,17 @@ download_data() {
     datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz' 'https://datasets.imdbws.com/name.basics.tsv.gz' 'https://datasets.imdbws.com/title.principals.tsv.gz' 'https://datasets.imdbws.com/title.ratings.tsv.gz')
 
     for datafile in "${datafiles[@]}"; do
-        wget -P "$raw_data_storage_dir"/ "$datafile"
-    done &&
-    unpigz "$raw_data_storage_dir"/*.tsv.gz &&
+        datafile_name=$(echo "$datafile" | awk -F'/' '{ print $NF }' | awk -F'.gz' '{ print $1 }')
+        exa "$raw_data_dir"/"$datafile_name" > /dev/null 2>&1
 
-    ln -s "$raw_data_storage_dir"/*.tsv "$raw_data_dir"/
+        # check if the datafile hasn't already been downloaded
+        if [ $? != 0 ]; then
+            wget -P "$raw_data_storage_dir"/ "$datafile"
+        fi
+    done &&
+    unpigz -q "$raw_data_storage_dir"/*.tsv.gz &&
+
+    ln -s "$raw_data_storage_dir"/*.tsv "$raw_data_dir"/ 2>/dev/null
 }
 
 find_movie_ids() {
