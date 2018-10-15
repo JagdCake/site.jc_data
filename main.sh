@@ -182,5 +182,6 @@ elif [ "$mode" == 'show' ]; then
     show_runtimes
     show_number_of "$directors_file" 10
     show_number_of "$actors_file" 10
+    show_number_of "$my_ratings_file" 6
 fi
 
