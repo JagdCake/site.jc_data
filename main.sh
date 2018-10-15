@@ -82,6 +82,9 @@ select_the_property() {
     elif [ "$property" == 'actors' ]; then
         # finds the names of the 2 top billed actors
         awk -F"\t" '{ print $2 }'
+    elif [ "$property" == 'IMDb ratings' ]; then
+        # finds the average IMDb rating
+        awk -F"\t" '{ print $2 }'
     fi
 }
 
@@ -116,6 +119,10 @@ find_the_property() {
         ids_file="$actor_ids_file"
         datafile="$names_data"
         output_file="$actors_file"
+    elif [ "$property" == 'IMDb ratings' ]; then
+        ids_file="$movie_ids_file"
+        datafile="$ratings_data"
+        output_file="$imdb_ratings_file"
     fi
 
     if [ "$property" != 'actor IDs' ]; then
@@ -179,6 +186,7 @@ elif [ "$mode" == 'generate' ]; then
     find_the_property 'actor IDs'
     find_the_property 'actors'
     find_my_ratings
+    find_the_property 'IMDb ratings'
 elif [ "$mode" == 'show' ]; then
     show_number_of "$genres_file" 10
     show_number_of "$years_file" 10
