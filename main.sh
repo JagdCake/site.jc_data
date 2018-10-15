@@ -180,6 +180,31 @@ show_runtimes() {
     echo "Average runtime: $hours hours $minutes minutes."
 }
 
+show_imdb_ratings() {
+    for rating in $(bat "$imdb_ratings_file"); do
+        if [ $(echo "$rating >= 9" | bc -l) -eq 1 ]; then
+            ((lettuce_amount+=1))
+        elif [ $(echo "$rating >= 7.7" | bc -l) -eq 1 ]; then
+            ((savory_amount+=1))
+        elif [ $(echo "$rating >= 6" | bc -l) -eq 1 ]; then
+            ((onion_amount+=1))
+        elif [ $(echo "$rating >= 5" | bc -l) -eq 1 ]; then
+            ((tomato_amount+=1))
+        elif [ $(echo "$rating >= 4" | bc -l) -eq 1 ]; then
+            ((carrot_amount+=1))
+        else
+            ((eggplant_amount+=1))
+        fi
+    done
+
+    echo "$lettuce_amount Sublime Lettuces"
+    echo "$savory_amount Amazing Savories"
+    echo "$onion_amount Great Onions"
+    echo "$tomato_amount Good Tomatoes"
+    echo "$carrot_amount Decent Carrots"
+    echo "$eggplant_amount Bad Eggplants"
+}
+
 if [ "$mode" == 'download' ]; then
     download_data
 elif [ "$mode" == 'generate' ]; then
