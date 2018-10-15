@@ -18,6 +18,7 @@ runtimes_file="$processed_data_dir"/runtimes
 years_file="$processed_data_dir"/years
 directors_file="$processed_data_dir"/directors
 actors_file="$processed_data_dir"/actors
+my_ratings_file="$processed_data_dir"/ratings
 
 # datafiles
 raw_data_storage_dir=~/Desktop/
@@ -46,6 +47,14 @@ download_data() {
 find_movie_ids() {
     # find all IMDb IDs
     rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$movies_html_file" | awk -F'/' '{ print $1 }' >> "$movie_ids_file"
+}
+
+find_my_ratings() {
+    ratings=('Bad Eggplant' 'Decent Carrot' 'Good Tomato' 'Great Onion' 'Amazing Savory' 'Sublime Lettuce')
+
+    for rating in "${ratings[@]}"; do
+        rg -o -N ">$rating<" "$movies_html_file" | sed -e 's/[>|<]//g' >> "$my_ratings_file"
+    done
 }
 
 select_the_property() {
@@ -166,6 +175,7 @@ elif [ "$mode" == 'generate' ]; then
     find_the_property 'directors'
     find_the_property 'actor IDs'
     find_the_property 'actors'
+    find_my_ratings
 elif [ "$mode" == 'show' ]; then
     show_number_of "$genres_file" 10
     show_number_of "$years_file" 10
