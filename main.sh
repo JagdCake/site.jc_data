@@ -225,5 +225,8 @@ elif [ "$mode" == 'show' ]; then
     show_number_of "$directors_file" 10
     show_number_of "$actors_file" 10
     show_number_of "$my_ratings_file" 6
+
+    echo -e "Average IMDb ratings translated to my rating system:\n"
+    show_imdb_ratings | sort -nr
 fi
 
