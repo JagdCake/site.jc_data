@@ -18,7 +18,7 @@ runtimes_file="$processed_data_dir"/runtimes
 years_file="$processed_data_dir"/years
 directors_file="$processed_data_dir"/directors
 actors_file="$processed_data_dir"/actors
-my_ratings_file="$processed_data_dir"/ratings
+my_ratings_file="$processed_data_dir"/my_ratings
 
 # datafiles
 raw_data_storage_dir=~/Desktop/
