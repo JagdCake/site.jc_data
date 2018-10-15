@@ -19,6 +19,7 @@ years_file="$processed_data_dir"/years
 directors_file="$processed_data_dir"/directors
 actors_file="$processed_data_dir"/actors
 my_ratings_file="$processed_data_dir"/my_ratings
+imdb_ratings_file="$processed_data_dir"/imdb_ratings
 
 # datafiles
 raw_data_storage_dir=~/Desktop/
@@ -31,10 +32,12 @@ crew_data="$raw_data_dir"/title.crew.tsv
 names_data="$raw_data_dir"/name.basics.tsv
 # cast IDs and character names
 cast_data="$raw_data_dir"/title.principals.tsv
+# average ratings
+ratings_data="$raw_data_dir"/title.ratings.tsv
 ### ###
 
 download_data() {
-    datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz' 'https://datasets.imdbws.com/name.basics.tsv.gz' 'https://datasets.imdbws.com/title.principals.tsv.gz')
+    datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz' 'https://datasets.imdbws.com/name.basics.tsv.gz' 'https://datasets.imdbws.com/title.principals.tsv.gz' 'https://datasets.imdbws.com/title.ratings.tsv.gz')
 
     for datafile in "${datafiles[@]}"; do
         wget -P "$raw_data_storage_dir"/ "$datafile"
