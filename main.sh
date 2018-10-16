@@ -37,18 +37,27 @@ ratings_data="$raw_data_dir"/title.ratings.tsv
 ### ###
 
 download_data() {
+    mode="$1"
+
     datafiles=('https://datasets.imdbws.com/title.basics.tsv.gz' 'https://datasets.imdbws.com/title.crew.tsv.gz' 'https://datasets.imdbws.com/name.basics.tsv.gz' 'https://datasets.imdbws.com/title.principals.tsv.gz' 'https://datasets.imdbws.com/title.ratings.tsv.gz')
 
-    for datafile in "${datafiles[@]}"; do
-        datafile_name=$(echo "$datafile" | awk -F'/' '{ print $NF }' | awk -F'.gz' '{ print $1 }')
-        exa "$raw_data_dir"/"$datafile_name" > /dev/null 2>&1
-
-        # check if the datafile hasn't already been downloaded
-        if [ $? != 0 ]; then
+    if [ "$mode" == 'refresh' ]; then
+        for datafile in "${datafiles[@]}"; do
             wget -P "$raw_data_storage_dir"/ "$datafile"
-        fi
-    done &&
-    unpigz -q "$raw_data_storage_dir"/*.tsv.gz &&
+        done &&
+        unpigz "$raw_data_storage_dir"/*.tsv.gz
+    else
+        for datafile in "${datafiles[@]}"; do
+            datafile_name=$(echo "$datafile" | awk -F'/' '{ print $NF }' | awk -F'.gz' '{ print $1 }')
+            exa "$raw_data_dir"/"$datafile_name" > /dev/null 2>&1
+
+            # check if the datafile hasn't already been downloaded
+            if [ $? != 0 ]; then
+                wget -P "$raw_data_storage_dir"/ "$datafile"
+            fi
+        done &&
+        unpigz -q "$raw_data_storage_dir"/*.tsv.gz
+    fi &&
 
     ln -s "$raw_data_storage_dir"/*.tsv "$raw_data_dir"/ 2>/dev/null
 }
@@ -216,6 +225,8 @@ show_average_imdb_rating() {
 
 if [ "$option" == 'download' ]; then
     download_data
+elif [ "$option" == 'refresh' ]; then
+    download_data 'refresh'
 elif [ "$option" == 'generate' ]; then
     find_movie_ids
     find_the_property 'director IDs'
