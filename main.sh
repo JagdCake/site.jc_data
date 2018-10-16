@@ -261,5 +261,9 @@ elif [ "$option" == 'show' ]; then
     echo -e "Average IMDb ratings translated to my rating system:\n"
     show_imdb_ratings | sort -nr
     show_average_imdb_rating
+elif [ "$option" == 'help' ]; then
+    usage
+else
+    usage
 fi
 
