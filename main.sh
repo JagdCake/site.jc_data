@@ -223,6 +223,18 @@ show_average_imdb_rating() {
     echo -e "\nAverage IMDb rating: $average_rating"
 }
 
+usage() {
+  printf "\tUsage:\n"
+  printf "\t./main.sh [OPTION]\n\n"
+  printf "\tOptions:\n"
+  printf "\t  download\tDownload datafiles.\n"
+  printf "\t  refresh\tRefresh datafiles by redownloading.\n"
+  printf "\t  generate\tGenerate data.\n"
+  printf "\t  show\t\tShow generated data.\n"
+  printf "\t  help\t\tShow help screen."
+  printf "\n\n"
+}
+
 if [ "$option" == 'download' ]; then
     download_data
 elif [ "$option" == 'refresh' ]; then
