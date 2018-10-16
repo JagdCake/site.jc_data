@@ -205,6 +205,15 @@ show_imdb_ratings() {
     echo "$eggplant_amount Bad Eggplants"
 }
 
+show_average_imdb_rating() {
+    ratings_sum=$(awk '{ s+=$1 } END { print s }' "$imdb_ratings_file")
+    number_of_ratings=$(bat "$imdb_ratings_file" | wc -l)
+
+    average_rating=$(echo "scale=1; $ratings_sum / $number_of_ratings" | bc -l)
+
+    echo -e "\nAverage IMDb rating: $average_rating"
+}
+
 if [ "$mode" == 'download' ]; then
     download_data
 elif [ "$mode" == 'generate' ]; then
@@ -228,5 +237,6 @@ elif [ "$mode" == 'show' ]; then
 
     echo -e "Average IMDb ratings translated to my rating system:\n"
     show_imdb_ratings | sort -nr
+    show_average_imdb_rating
 fi
 
