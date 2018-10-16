@@ -3,7 +3,7 @@
 # enter "download" to download data
 # enter "generate" to generate data
 # enter "show" to display the collected data
-mode="$1"
+option="$1"
 
 ### File Paths ###
 movies_html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
@@ -214,9 +214,9 @@ show_average_imdb_rating() {
     echo -e "\nAverage IMDb rating: $average_rating"
 }
 
-if [ "$mode" == 'download' ]; then
+if [ "$option" == 'download' ]; then
     download_data
-elif [ "$mode" == 'generate' ]; then
+elif [ "$option" == 'generate' ]; then
     find_movie_ids
     find_the_property 'director IDs'
     find_the_property 'genres'
@@ -227,7 +227,7 @@ elif [ "$mode" == 'generate' ]; then
     find_the_property 'actors'
     find_my_ratings
     find_the_property 'IMDb ratings'
-elif [ "$mode" == 'show' ]; then
+elif [ "$option" == 'show' ]; then
     show_number_of "$genres_file" 10
     show_number_of "$years_file" 10
     show_runtimes
