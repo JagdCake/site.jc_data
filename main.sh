@@ -263,16 +263,28 @@ elif [ "$option" == 'generate' ]; then
     find_my_ratings
     find_the_property 'IMDb ratings'
 elif [ "$option" == 'show' ]; then
+    echo -e "\nNumber of movies per genre:\n"
     show_number_of "$genres_file" 10
+
+    echo -e "\nNumber of movies per year:\n"
     show_number_of "$years_file" 10
-    echo -e "Number of movies per decade:\n"
+
+    echo -e "\nNumber of movies per decade:\n"
     show_number_per_decade 10
+
+    echo -e "\nMovie runtime information:\n"
     show_runtimes
+
+    echo -e "\nNumber of movies from different directors:\n"
     show_number_of "$directors_file" 10
+
+    echo -e "\nNumber of movies starring different actors:\n"
     show_number_of "$actors_file" 10
+
+    echo -e "\nNumber of movies per rating:\n"
     show_number_of "$my_ratings_file" 6
 
-    echo -e "Average IMDb ratings translated to my rating system:\n"
+    echo -e "\nAverage IMDb ratings translated to my rating system:\n"
     show_imdb_ratings | sort -nr
     show_average_imdb_rating
 elif [ "$option" == 'help' ]; then
