@@ -265,6 +265,8 @@ elif [ "$option" == 'generate' ]; then
 elif [ "$option" == 'show' ]; then
     show_number_of "$genres_file" 10
     show_number_of "$years_file" 10
+    echo -e "Number of movies per decade:\n"
+    show_number_per_decade 10
     show_runtimes
     show_number_of "$directors_file" 10
     show_number_of "$actors_file" 10
