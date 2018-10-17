@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# enter "download" to download data
-# enter "generate" to generate data
-# enter "show" to display the collected data
 option="$1"
 
 ### File Paths ###
