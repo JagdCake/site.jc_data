@@ -163,8 +163,8 @@ show_number_of() {
     # (enter a number higher than the amount of items to show all items)
     total=$2
 
-    # display the number (from highest to lowest) of movies for every X property and show the output in a table
-    sort "$x_file" | uniq -c | sort -nr | head -n $total | bat
+    # display the number (from highest to lowest) of movies for every X property
+    sort "$x_file" | uniq -c | sort -nr | head -n $total
 }
 
 show_number_per_decade() {
