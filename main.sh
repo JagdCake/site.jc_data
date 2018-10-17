@@ -167,6 +167,18 @@ show_number_of() {
     sort "$x_file" | uniq -c | sort -nr | head -n $total | bat
 }
 
+show_number_per_decade() {
+    total=$1
+
+    # remove the last digit from every year
+    # Source: https://stackoverflow.com/questions/31135251/how-to-set-the-field-separator-to-an-empty-string/31135446#31135446
+    # also, sort the resulting numbers and print only the unique ones
+    for decade in $(bat "$years_file" | awk -F '' '{ print $1$2$3 }' | sort -nr | uniq); do
+        number=$(rg -N $decade "$years_file" | wc -l)
+        echo "$number ${decade}0s"
+    done | head -n $total
+}
+
 calc_hours_and_minutes() {
     minutes=$1
 
