@@ -21,3 +21,10 @@ function getSpentDays() {
 
     return days.toFixed(0);
 }
+
+function showTime(keyword, func, time) {
+    const elementDays = document.querySelector(`.${keyword}`);
+
+    elementDays.innerText = `${func()} ${time}`;
+}
+
