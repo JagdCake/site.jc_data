@@ -28,3 +28,5 @@ function showTime(keyword, func, time) {
     elementDays.innerText = `${func()} ${time}`;
 }
 
+showTime('total_days', getTotalDays, 'days');
+showTime('total_days_spent', getSpentDays, '');
