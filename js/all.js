@@ -11,3 +11,13 @@ function getTotalDays() {
 
     return totalDays;
 }
+
+function getSpentDays() {
+    const oneDayMin = 24*60;
+
+    const totalMinutes = total_minutes;
+
+    const days = totalMinutes / oneDayMin;
+
+    return days.toFixed(0);
+}
