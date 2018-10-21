@@ -192,6 +192,10 @@ show_runtimes() {
     calc_hours_and_minutes $longest_minutes
     echo "Longest movie: $hours hours and $minutes minutes."
 
+    shortest_minutes=$(sort -nr "$runtimes_file" | tail -n 1)
+    calc_hours_and_minutes $shortest_minutes
+    echo "Shortest movie: $hours hour and $minutes minutes."
+
     runtimes_number=$(bat "$runtimes_file" | wc -l)
     ((average_in_minutes=$total_minutes/$runtimes_number))
     calc_hours_and_minutes $average_in_minutes
