@@ -203,6 +203,7 @@ show_runtimes() {
 }
 
 show_imdb_ratings() {
+    # had to pipe rating comparison to 'bc' because bash doesn't support float calculations
     for rating in $(bat "$imdb_ratings_file"); do
         if [ $(echo "$rating >= 9" | bc -l) -eq 1 ]; then
             ((lettuce_amount+=1))
