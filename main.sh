@@ -60,7 +60,18 @@ download_data() {
 }
 
 find_movie_ids() {
-    # find all IMDb IDs
+    number_of_ids_before=$(bat "$movie_ids_file" 2>/dev/null | wc -l)
+    # if the IDs file isn't empty, create a temporary HTML file with the already found IDs removed, so that 'ripgrep' can append only the newly found ones
+    if [ $number_of_ids_before -gt 0 ]; then
+        cp "$movies_html_file" /tmp/updated_html_file.html
+        movies_html_file=/tmp/updated_html_file.html
+
+        for id in $(bat "$movie_ids_file"); do
+            sed -i "s/$id//" "$movies_html_file"
+        done
+    fi
+
+    # find all / new IMDb IDs
     rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$movies_html_file" | awk -F'/' '{ print $1 }' >> "$movie_ids_file"
 }
 
