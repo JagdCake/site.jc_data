@@ -73,6 +73,9 @@ find_movie_ids() {
 
     # find all / new IMDb IDs
     rg -o -N -e "(tt\d{7}/\?)|(tt\d{7}/\")" "$movies_html_file" | awk -F'/' '{ print $1 }' >> "$movie_ids_file"
+
+    number_of_ids_after=$(bat "$movie_ids_file" | wc -l)
+    ((number_of_new_ids=$number_of_ids_after - $number_of_ids_before))
 }
 
 find_my_ratings() {
@@ -148,20 +151,25 @@ find_the_property() {
         output_file="$imdb_ratings_file"
     fi
 
-    if [ "$property" != 'actor IDs' ]; then
-        for id in $(bat "$ids_file"); do
-            # adding the '-N' flag seems to make ripgrep a bit faster
-            rg -N "$id" "$datafile" | select_the_property >> "$output_file"
-        done
-    else
-        for id in $(bat "$ids_file"); do
-            # search for the 2 top billed actors by their 'order' (1 and 2)
-            rg -N -e ""$id"\t(1\t|2)" "$datafile" | select_the_property >> "$output_file"
-        done
-    fi
+    if [ $number_of_new_ids -gt 0 ]; then
+        head -n $number_of_new_ids "$ids_file" > /tmp/updated_ids_file
+        ids_file=/tmp/updated_ids_file
 
-    if [ "$property" == 'director IDs' ]; then
-        sed -i 's/,/\n/g' "$director_ids_file"
+        if [ "$property" != 'actor IDs' ]; then
+            for id in $(bat "$ids_file"); do
+                # adding the '-N' flag seems to make ripgrep a bit faster
+                rg -N "$id" "$datafile" | select_the_property >> "$output_file"
+            done
+        else
+            for id in $(bat "$ids_file"); do
+                # search for the 2 top billed actors by their 'order' (1 and 2)
+                rg -N -e ""$id"\t(1\t|2)" "$datafile" | select_the_property >> "$output_file"
+            done
+        fi
+
+        if [ "$property" == 'director IDs' ]; then
+            sed -i 's/,/\n/g' "$director_ids_file"
+        fi
     fi
 }
 
