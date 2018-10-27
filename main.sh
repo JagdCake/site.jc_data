@@ -226,7 +226,7 @@ show_imdb_ratings() {
     for rating in $(bat "$imdb_ratings_file"); do
         if [ $(echo "$rating >= 9" | bc -l) -eq 1 ]; then
             ((lettuce_amount+=1))
-        elif [ $(echo "$rating >= 7.7" | bc -l) -eq 1 ]; then
+        elif [ $(echo "$rating >= 7.9" | bc -l) -eq 1 ]; then
             ((savory_amount+=1))
         elif [ $(echo "$rating >= 6" | bc -l) -eq 1 ]; then
             ((onion_amount+=1))
