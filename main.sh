@@ -303,6 +303,9 @@ elif [ "$option" == 'generate' ]; then
     find_the_property 'IMDb ratings'
     date "+%dth of %B, %Y" > "$last_update_file"
 elif [ "$option" == 'show' ]; then
+    movie_number=$(bat "$movie_ids_file" | wc -l)
+    echo -e "\nTotal number of movies: $movie_number\n"
+
     echo -e "\nNumber of movies per genre:\n"
     show_number_of "$genres_file" 10
 
