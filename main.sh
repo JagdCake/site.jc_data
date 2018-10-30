@@ -6,6 +6,8 @@ option="$1"
 movies_html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
 
 processed_data_dir="$(pwd)/processed_data/"
+last_update_file="$processed_data_dir"/last_update
+
 movie_ids_file="$processed_data_dir"/movie_ids
 director_ids_file="$processed_data_dir"/director_ids
 actor_ids_file="$processed_data_dir"/actor_ids
@@ -299,6 +301,7 @@ elif [ "$option" == 'generate' ]; then
     find_the_property 'actors'
     find_my_ratings
     find_the_property 'IMDb ratings'
+    date "+%dth of %B, %Y" > "$last_update_file"
 elif [ "$option" == 'show' ]; then
     echo -e "\nNumber of movies per genre:\n"
     show_number_of "$genres_file" 10
