@@ -274,35 +274,7 @@ show_average_imdb_rating() {
     echo -e "\nAverage IMDb rating: $average_rating"
 }
 
-usage() {
-  printf "\tUsage:\n"
-  printf "\t./main.sh [OPTION]\n\n"
-  printf "\tOptions:\n"
-  printf "\t  download\tDownload datafiles.\n"
-  printf "\t  refresh\tRefresh datafiles by redownloading.\n"
-  printf "\t  generate\tGenerate data.\n"
-  printf "\t  show\t\tShow generated data.\n"
-  printf "\t  help\t\tShow help screen."
-  printf "\n\n"
-}
-
-if [ "$option" == 'download' ]; then
-    download_data
-elif [ "$option" == 'refresh' ]; then
-    download_data 'refresh'
-elif [ "$option" == 'generate' ]; then
-    find_movie_ids
-    find_the_property 'director IDs'
-    find_the_property 'genres'
-    find_the_property 'runtimes'
-    find_the_property 'years'
-    find_the_property 'directors'
-    find_the_property 'actor IDs'
-    find_the_property 'actors'
-    find_my_ratings
-    find_the_property 'IMDb ratings'
-    date "+%dth of %B, %Y" > "$last_update_file"
-elif [ "$option" == 'show' ]; then
+show() {
     movie_number=$(bat "$movie_ids_file" | wc -l)
     echo -e "\nTotal number of movies: $movie_number\n"
 
@@ -338,6 +310,38 @@ elif [ "$option" == 'show' ]; then
     mapfile -t my_imdb_ratings < <(show_imdb_ratings ... | sort -nr)
 
     show_average_imdb_rating
+}
+
+usage() {
+  printf "\tUsage:\n"
+  printf "\t./main.sh [OPTION]\n\n"
+  printf "\tOptions:\n"
+  printf "\t  download\tDownload datafiles.\n"
+  printf "\t  refresh\tRefresh datafiles by redownloading.\n"
+  printf "\t  generate\tGenerate data.\n"
+  printf "\t  show\t\tShow generated data.\n"
+  printf "\t  help\t\tShow help screen."
+  printf "\n\n"
+}
+
+if [ "$option" == 'download' ]; then
+    download_data
+elif [ "$option" == 'refresh' ]; then
+    download_data 'refresh'
+elif [ "$option" == 'generate' ]; then
+    find_movie_ids
+    find_the_property 'director IDs'
+    find_the_property 'genres'
+    find_the_property 'runtimes'
+    find_the_property 'years'
+    find_the_property 'directors'
+    find_the_property 'actor IDs'
+    find_the_property 'actors'
+    find_my_ratings
+    find_the_property 'IMDb ratings'
+    date "+%dth of %B, %Y" > "$last_update_file"
+elif [ "$option" == 'show' ]; then
+    show
 elif [ "$option" == 'help' ]; then
     usage
 else
