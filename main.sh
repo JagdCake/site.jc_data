@@ -333,9 +333,9 @@ elif [ "$option" == 'show' ]; then
     show_number_of "$my_ratings_file" 6
 
     echo -e "\nAverage IMDb ratings translated to my rating system:\n"
+    show_imdb_ratings | sort -nr
     # Source: https://askubuntu.com/a/439038/776543
     mapfile -t my_imdb_ratings < <(show_imdb_ratings ... | sort -nr)
-    echo "${my_imdb_ratings[@]}"
 
     show_average_imdb_rating
 elif [ "$option" == 'help' ]; then
