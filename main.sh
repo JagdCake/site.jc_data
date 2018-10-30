@@ -81,6 +81,7 @@ find_movie_ids() {
 find_my_ratings() {
     ratings=('Bad Eggplant' 'Decent Carrot' 'Good Tomato' 'Great Onion' 'Amazing Savory' 'Sublime Lettuce')
 
+    rm "$my_ratings_file"
     for rating in "${ratings[@]}"; do
         rg -o -N ">$rating<" "$movies_html_file" | sed -e 's/[>|<]//g' >> "$my_ratings_file"
     done
