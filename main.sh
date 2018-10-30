@@ -221,6 +221,21 @@ show_runtimes() {
     echo "Average runtime: $hours hours $minutes minutes."
 }
 
+show_days() {
+    date_start='2016-06-01'
+    date_last_update_machine=$(date "+%Y-%m-%d")
+
+    date_start_s=$(date -d $date_start +%s)
+    date_last_update_s=$(date -d $date_last_update_machine +%s)
+    ((total_days_s=$date_last_update_s - $date_start_s))
+
+    total_days=$(udunits2 -H "$total_days_s seconds" -W days | awk -F'x' '{ print $1 }' |awk -F'=' '{ print $2 }' | awk -F'.' '{ print $1 }')
+    total_days_spent=$(udunits2 -H "$total_minutes minutes" -W days | awk -F'x' '{ print $1 }' |awk -F'=' '{ print $2 }' | awk -F'.' '{ print $1 }')
+    percent_of_total_days=$(echo "scale=1; 100 * $total_days_spent / $total_days" | bc -l)
+
+    echo "Out of $total_days days, I've spent $total_days_spent watching films. That's ${percent_of_total_days}% of my time."
+}
+
 show_imdb_ratings() {
     # had to pipe rating comparison to 'bc' because bash doesn't support float calculations
     for rating in $(bat "$imdb_ratings_file"); do
@@ -295,6 +310,8 @@ elif [ "$option" == 'show' ]; then
 
     echo -e "\nMovie runtime information:\n"
     show_runtimes
+
+    show_days
 
     echo -e "\nNumber of movies from different directors:\n"
     show_number_of "$directors_file" 10
