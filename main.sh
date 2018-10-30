@@ -306,6 +306,9 @@ elif [ "$option" == 'show' ]; then
     movie_number=$(bat "$movie_ids_file" | wc -l)
     echo -e "\nTotal number of movies: $movie_number\n"
 
+    date_last_update=$(bat "$last_update_file")
+    echo -e "\nLast update on the $date_last_update\n"
+
     echo -e "\nNumber of movies per genre:\n"
     show_number_of "$genres_file" 10
 
