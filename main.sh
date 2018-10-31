@@ -233,8 +233,8 @@ show_days() {
     date_last_update_s=$(date -d $date_last_update_machine +%s)
     ((total_days_s=$date_last_update_s - $date_start_s))
 
-    total_days=$(udunits2 -H "$total_days_s seconds" -W days | awk -F'x' '{ print $1 }' |awk -F'=' '{ print $2 }' | awk -F'.' '{ print $1 }')
-    total_days_spent=$(udunits2 -H "$total_minutes minutes" -W days | awk -F'x' '{ print $1 }' |awk -F'=' '{ print $2 }' | awk -F'.' '{ print $1 }')
+    total_days=$(udunits2 -H "$total_days_s seconds" -W days | awk -F'x' '{ print $1 }' | awk -F'=' '{ print $2 }' | awk -F'.' '{ print $1 }' | tr -d '[:space:]')
+    total_days_spent=$(udunits2 -H "$total_minutes minutes" -W days | awk -F'x' '{ print $1 }' |awk -F'=' '{ print $2 }' | awk -F'.' '{ print $1 }' | tr -d '[:space:]')
     percent_of_total_days=$(echo "scale=1; 100 * $total_days_spent / $total_days" | bc -l)
 
     echo "Out of $total_days days, I've spent $total_days_spent watching films. That's ${percent_of_total_days}% of my time."
