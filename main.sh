@@ -289,6 +289,9 @@ show() {
     date_last_update_human=$(head -n 1 "$last_update_file")
     echo -e "\nLast update on the $date_last_update_human\n"
 
+    top_genre=$(show_number_of "$genres_file" 1 | awk '{ print $2 }')
+    echo -e "\nTop genre: $top_genre"
+
     echo -e "\nNumber of movies per genre:\n"
     show_number_of "$genres_file" 10
 
