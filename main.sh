@@ -208,7 +208,8 @@ calc_hours_and_minutes() {
 show_runtimes() {
     total_minutes=$(awk '{ s+=$1 } END { print s }' "$runtimes_file")
     calc_hours_and_minutes $total_minutes
-    echo "I've watched movies for a total of $hours hours and $minutes minutes."
+    total_hours_and_mins=$(echo "$hours hours and $minutes minutes")
+    echo "I've watched movies for a total of $total_hours_and_mins."
 
     longest_minutes=$(sort -n "$runtimes_file" | tail -n 1)
     calc_hours_and_minutes $longest_minutes
@@ -226,7 +227,7 @@ show_runtimes() {
 
 show_days() {
     date_start='2016-06-01'
-    date_last_update_machine=$(date "+%Y-%m-%d")
+    date_last_update_machine=$(tail -n 1 "$last_update_file")
 
     date_start_s=$(date -d $date_start +%s)
     date_last_update_s=$(date -d $date_last_update_machine +%s)
@@ -278,8 +279,8 @@ show() {
     movie_number=$(bat "$movie_ids_file" | wc -l)
     echo -e "\nTotal number of movies: $movie_number\n"
 
-    date_last_update=$(bat "$last_update_file")
-    echo -e "\nLast update on the $date_last_update\n"
+    date_last_update_human=$(head -n 1 "$last_update_file")
+    echo -e "\nLast update on the $date_last_update_human\n"
 
     echo -e "\nNumber of movies per genre:\n"
     show_number_of "$genres_file" 10
@@ -340,6 +341,7 @@ elif [ "$option" == 'generate' ]; then
     find_my_ratings
     find_the_property 'IMDb ratings'
     date "+%dth of %B, %Y" > "$last_update_file"
+    date "+%Y-%m-%d" >> "$last_update_file"
 elif [ "$option" == 'show' ]; then
     show
 elif [ "$option" == 'help' ]; then
