@@ -183,7 +183,7 @@ show_number_of() {
     total=$2
 
     # display the number (from highest to lowest) of movies for every X property
-    sort "$x_file" | uniq -c | sort -nr | head -n $total
+    sort "$x_file" | uniq -c | sort -k1,1nr -k2 | head -n $total
 }
 
 show_number_per_decade() {
