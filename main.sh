@@ -294,6 +294,9 @@ show() {
 
     echo -e "\nNumber of movies per genre:\n"
     show_number_of "$genres_file" 10
+    # Source: https://askubuntu.com/a/439038/776543
+    mapfile -t movies_per_genre < <(show_number_of "$genres_file" 10 ...)
+
     top_year=$(show_number_of "$years_file" 1 | awk '{ print $2 }')
     echo -e "\nTop year: $top_year"
 
@@ -302,6 +305,7 @@ show() {
 
     echo -e "\nNumber of movies per decade:\n"
     show_number_per_decade 10
+    mapfile -t movies_per_decade < <(show_number_per_decade 10 ...)
 
     echo -e "\nMovie runtime information:\n"
     show_runtimes
@@ -313,20 +317,24 @@ show() {
 
     echo -e "\nNumber of movies from different directors:\n"
     show_number_of "$directors_file" 10
+    mapfile -t movie_directors < <(show_number_of "$directors_file" 10 ...)
+
     top_actor=$(show_number_of "$actors_file" 1 | awk '{ print $2,$3 }')
     echo -e "\nTop actor: $top_actor"
 
     echo -e "\nNumber of movies starring different actors:\n"
     show_number_of "$actors_file" 10
+    mapfile -t movie_actors < <(show_number_of "$actors_file" 10 ...)
+
     my_top_rating=$(show_number_of "$my_ratings_file" 1 | awk '{ print $2,$3 }')
     echo -e "\nTop rating: $my_top_rating"
 
     echo -e "\nNumber of movies per rating:\n"
     show_number_of "$my_ratings_file" 6
+    mapfile -t my_ratings < <(show_number_of "$my_ratings_file" 6 ...)
 
     echo -e "\nAverage IMDb ratings translated to my rating system:\n"
     show_imdb_ratings | sort -nr
-    # Source: https://askubuntu.com/a/439038/776543
     mapfile -t my_imdb_ratings < <(show_imdb_ratings ... | sort -nr)
 
     show_average_imdb_rating
