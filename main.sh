@@ -294,6 +294,8 @@ show() {
 
     echo -e "\nNumber of movies per genre:\n"
     show_number_of "$genres_file" 10
+    top_year=$(show_number_of "$years_file" 1 | awk '{ print $2 }')
+    echo -e "\nTop year: $top_year"
 
     echo -e "\nNumber of movies per year:\n"
     show_number_of "$years_file" 10
@@ -306,11 +308,18 @@ show() {
 
     show_days
 
+    top_director=$(show_number_of "$directors_file" 1 | awk '{ print $2,$3 }')
+    echo -e "\nTop director: $top_director"
+
     echo -e "\nNumber of movies from different directors:\n"
     show_number_of "$directors_file" 10
+    top_actor=$(show_number_of "$actors_file" 1 | awk '{ print $2,$3 }')
+    echo -e "\nTop actor: $top_actor"
 
     echo -e "\nNumber of movies starring different actors:\n"
     show_number_of "$actors_file" 10
+    my_top_rating=$(show_number_of "$my_ratings_file" 1 | awk '{ print $2,$3 }')
+    echo -e "\nTop rating: $my_top_rating"
 
     echo -e "\nNumber of movies per rating:\n"
     show_number_of "$my_ratings_file" 6
