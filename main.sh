@@ -340,8 +340,8 @@ elif [ "$option" == 'generate' ]; then
     find_the_property 'actors'
     find_my_ratings
     find_the_property 'IMDb ratings'
-    date "+%dth of %B, %Y" > "$last_update_file"
-    date "+%Y-%m-%d" >> "$last_update_file"
+    date "+%B %d, %Y" > "$last_update_file"
+    date "+%F" >> "$last_update_file"
 elif [ "$option" == 'show' ]; then
     show
 elif [ "$option" == 'help' ]; then
