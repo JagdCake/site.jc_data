@@ -209,20 +209,27 @@ show_runtimes() {
     total_minutes=$(awk '{ s+=$1 } END { print s }' "$runtimes_file")
     calc_hours_and_minutes $total_minutes
     total_hours_and_mins=$(echo "$hours hours and $minutes minutes")
+    total_hours_and_mins_machine=$(echo "${hours}h ${minutes}m")
     echo "I've watched movies for a total of $total_hours_and_mins."
 
     longest_minutes=$(sort -n "$runtimes_file" | tail -n 1)
     calc_hours_and_minutes $longest_minutes
-    echo "Longest movie: $hours hours and $minutes minutes."
+    longest_movie_runtime=$(echo "$hours hours and $minutes minutes")
+    longest_movie_runtime_machine=$(echo "${hours}h ${minutes}m")
+    echo "Longest movie: $longest_movie_runtime."
 
     shortest_minutes=$(sort -nr "$runtimes_file" | tail -n 1)
     calc_hours_and_minutes $shortest_minutes
-    echo "Shortest movie: $hours hour and $minutes minutes."
+    shortest_movie_runtime=$(echo "$hours hours and $minutes minutes")
+    shortest_movie_runtime_machine=$(echo "${hours}h ${minutes}m")
+    echo "Shortest movie: $shortest_movie_runtime."
 
     runtimes_number=$(bat "$runtimes_file" | wc -l)
     ((average_in_minutes=$total_minutes/$runtimes_number))
     calc_hours_and_minutes $average_in_minutes
-    echo "Average runtime: $hours hours $minutes minutes."
+    average_runtime=$(echo "$hours hours and $minutes minutes")
+    average_runtime_machine=$(echo "${hours}h ${minutes}m")
+    echo "Average runtime: $average_runtime."
 }
 
 show_days() {
