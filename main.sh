@@ -265,12 +265,12 @@ show_imdb_ratings() {
         fi
     done
 
-    echo "$lettuce_amount Sublime Lettuces"
-    echo "$savory_amount Amazing Savories"
-    echo "$onion_amount Great Onions"
-    echo "$tomato_amount Good Tomatoes"
-    echo "$carrot_amount Decent Carrots"
-    echo "$eggplant_amount Bad Eggplants"
+    echo "$lettuce_amount Sublime Lettuce"
+    echo "$savory_amount Amazing Savory"
+    echo "$onion_amount Great Onion"
+    echo "$tomato_amount Good Tomato"
+    echo "$carrot_amount Decent Carrot"
+    echo "$eggplant_amount Bad Eggplant"
 }
 
 show_average_imdb_rating() {
