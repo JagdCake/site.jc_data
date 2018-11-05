@@ -24,6 +24,20 @@ add_array_data() {
     data_arr=()
 }
 
+movie_age_adjective() {
+    if [ $top_year -ge 2010 ]; then
+        adjective='newer'
+    elif [ $top_year -ge 2000 ]; then
+        adjective='new'
+    elif [ $top_year -ge 1980 ]; then
+        adjective='old'
+    else
+        adjective='older'
+    fi
+
+    echo "$adjective"
+}
+
 add_data_to_section() {
     section="$1"
 
