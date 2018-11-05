@@ -37,6 +37,9 @@ add_data_to_section() {
         add_data "total_days_spent_machine" "$total_days_spent"
         add_data "total_days_spent" "$total_days_spent"
         add_data "percent_of_total_days" "$percent_of_total_days"
+    elif [ "$section" == 'hours' ]; then
+        add_data "total_hours_and_mins_machine" "$total_hours_and_mins_machine"
+        add_data "total_hours_and_mins" "$total_hours_and_mins"
     fi
 }
 
@@ -46,6 +49,7 @@ add_data_to_article() {
     if [ $article -eq 1 ]; then
         add_data_to_section 'dates'
         add_data_to_section 'days'
+        add_data_to_section 'hours'
     fi
 }
 
