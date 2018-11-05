@@ -115,7 +115,7 @@ add_data_to_article() {
     elif [ $article -eq 6 ]; then
         add_data_to_section 'actor text'
         add_data_to_section 'actor list'
-    elif [ $article -eq 7 ]; then
+    elif [ $article -eq 8 ]; then
         add_data_to_section 'my ratings text'
         add_data_to_section 'my ratings list'
     fi
@@ -127,5 +127,5 @@ add_data_to_article 3
 add_data_to_article 4
 add_data_to_article 5
 add_data_to_article 6
-add_data_to_article 7
+add_data_to_article 8
 
