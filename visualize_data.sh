@@ -49,6 +49,10 @@ add_data_to_section() {
     elif [ "$section" == 'runtime average' ]; then
         add_data "average_runtime_machine" "$average_runtime_machine"
         add_data "average_runtime" "$average_runtime"
+    elif [ "$section" == 'genre text' ]; then
+        add_data "top_genre" "$top_genre"
+    elif [ "$section" == 'genre list' ]; then
+        add_array_data  "movies_per_genre" "${movies_per_genre[@]}"
     fi
 }
 
@@ -63,6 +67,13 @@ add_data_to_article() {
         add_data_to_section 'runtime long'
         add_data_to_section 'runtime short'
         add_data_to_section 'runtime average'
+    elif [ $article -eq 3 ]; then
+        add_data_to_section 'genre text'
+        add_data_to_section 'genre list'
     fi
 }
+
+add_data_to_article 1
+add_data_to_article 2
+add_data_to_article 3
 
