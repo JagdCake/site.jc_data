@@ -43,6 +43,31 @@ movie_age_adjective() {
     echo "$adjective"
 }
 
+rating_stars() {
+    ratings=("$@")
+
+    stars=0
+    for rating in "${ratings[@]}"; do
+        number_of_ratings="$(echo "$rating" | awk '{ print $1 }')"
+        rating="$(echo "$rating" | awk '{ print $2,$3 }')"
+
+        # assign a numerical value to every rating and multiply the number of ratings by it, so that the ratings can be compared
+        if [ "$rating" == 'Sublime Lettuce' ]; then
+            ((stars=$stars + $number_of_ratings * 6))
+        elif [ "$rating" == 'Amazing Savory' ]; then
+            ((stars=$stars + $number_of_ratings * 5))
+        elif [ "$rating" == 'Great Onion' ]; then
+            ((stars=$stars + $number_of_ratings * 4))
+        elif [ "$rating" == 'Good Tomato' ]; then
+            ((stars=$stars + $number_of_ratings * 3))
+        elif [ "$rating" == 'Decent Carrot' ]; then
+            ((stars=$stars + $number_of_ratings * 2))
+        elif [ "$rating" == 'Bad Eggplant' ]; then
+            ((stars=$stars + $number_of_ratings * 1))
+        fi
+    done
+}
+
 add_data_to_section() {
     section="$1"
 
