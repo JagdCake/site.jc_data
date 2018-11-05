@@ -40,6 +40,15 @@ add_data_to_section() {
     elif [ "$section" == 'hours' ]; then
         add_data "total_hours_and_mins_machine" "$total_hours_and_mins_machine"
         add_data "total_hours_and_mins" "$total_hours_and_mins"
+    elif [ "$section" == 'runtime long' ]; then
+        add_data "longest_movie_runtime_machine" "$longest_movie_runtime_machine"
+        add_data "longest_movie_runtime" "$longest_movie_runtime"
+    elif [ "$section" == 'runtime short' ]; then
+        add_data "shortest_movie_runtime_machine" "$shortest_movie_runtime_machine"
+        add_data "shortest_movie_runtime" "$shortest_movie_runtime"
+    elif [ "$section" == 'runtime average' ]; then
+        add_data "average_runtime_machine" "$average_runtime_machine"
+        add_data "average_runtime" "$average_runtime"
     fi
 }
 
@@ -50,6 +59,10 @@ add_data_to_article() {
         add_data_to_section 'dates'
         add_data_to_section 'days'
         add_data_to_section 'hours'
+    elif [ $article -eq 2 ]; then
+        add_data_to_section 'runtime long'
+        add_data_to_section 'runtime short'
+        add_data_to_section 'runtime average'
     fi
 }
 
