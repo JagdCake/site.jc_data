@@ -76,6 +76,10 @@ add_data_to_section() {
         add_data "top_director" "$top_director"
     elif [ "$section" == 'director list' ]; then
         add_array_data  "movie_directors" "${movie_directors[@]}"
+    elif [ "$section" == 'actor text' ]; then
+        add_data "top_actor" "$top_actor"
+    elif [ "$section" == 'actor list' ]; then
+        add_array_data  "movie_actors" "${movie_actors[@]}"
     fi
 }
 
@@ -99,6 +103,9 @@ add_data_to_article() {
     elif [ $article -eq 5 ]; then
         add_data_to_section 'director text'
         add_data_to_section 'director list'
+    elif [ $article -eq 6 ]; then
+        add_data_to_section 'actor text'
+        add_data_to_section 'actor list'
     fi
 }
 
@@ -107,4 +114,5 @@ add_data_to_article 2
 add_data_to_article 3
 add_data_to_article 4
 add_data_to_article 5
+add_data_to_article 6
 
