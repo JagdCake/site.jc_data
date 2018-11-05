@@ -9,6 +9,10 @@ add_data() {
     sed -i "s/$keyword/$data/" "$index_file"
 }
 
+pluralize() {
+    sed -e 's/Lettuce/Lettuces/' -e 's/Savory/Savories/' -e 's/Onion/Onions/' -e 's/Tomato/Tomatoes/' -e 's/Carrot/Carrots/' -e 's/Eggplant/Eggplants/'
+}
+
 add_array_data() {
     keyword="$1"
     # Source: https://stackoverflow.com/a/16462240/8980616
@@ -16,6 +20,7 @@ add_array_data() {
     data=("$@")
 
     for i in "${data[@]}"; do
+        i=$(echo "$i" | pluralize)
         data_arr+=("<li>${i}<\/li>")
     done
 
