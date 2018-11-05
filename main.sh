@@ -117,6 +117,24 @@ select_the_property() {
     fi
 }
 
+append_the_property() {
+    if [ "$property" != 'actor IDs' ]; then
+        for id in $(bat "$ids_file"); do
+            # adding the '-N' flag seems to make ripgrep a bit faster
+            rg -N "$id" "$datafile" | select_the_property >> "$output_file"
+        done
+    else
+        for id in $(bat "$ids_file"); do
+            # search for the 2 top billed actors by their 'order' (1 and 2)
+            rg -N -e ""$id"\t(1\t|2)" "$datafile" | select_the_property >> "$output_file"
+        done
+    fi
+
+    if [ "$property" == 'director IDs' ]; then
+        sed -i 's/,/\n/g' "$director_ids_file"
+    fi
+}
+
 find_the_property() {
     property="$1"
 
