@@ -31,6 +31,12 @@ add_data_to_section() {
         add_data "date_last_update_machine" "$date_last_update_machine"
         add_data "date_last_update_human" "$date_last_update_human"
         add_data "movie_number" "$movie_number"
+    elif [ "$section" == 'days' ]; then
+        add_data "total_days_machine" "$total_days"
+        add_data "total_days" "$total_days"
+        add_data "total_days_spent_machine" "$total_days_spent"
+        add_data "total_days_spent" "$total_days_spent"
+        add_data "percent_of_total_days" "$percent_of_total_days"
     fi
 }
 
@@ -39,6 +45,7 @@ add_data_to_article() {
 
     if [ $article -eq 1 ]; then
         add_data_to_section 'dates'
+        add_data_to_section 'days'
     fi
 }
 
