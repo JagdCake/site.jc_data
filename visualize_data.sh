@@ -131,6 +131,10 @@ add_data_to_section() {
         add_data "my_top_rating" "$(echo $my_top_rating | pluralize)"
     elif [ "$section" == 'my ratings list' ]; then
         add_array_data "my_ratings" "${my_ratings[@]}"
+    elif [ "$section" == 'imdb ratings text' ]; then
+        add_data "ratings_adjective" "$(ratings_adjective)"
+    elif [ "$section" == 'imdb ratings list' ]; then
+        add_array_data "my_imdb_ratings" "${my_imdb_ratings[@]}"
     fi
 }
 
@@ -160,6 +164,9 @@ add_data_to_article() {
     elif [ $article -eq 8 ]; then
         add_data_to_section 'my ratings text'
         add_data_to_section 'my ratings list'
+    elif [ $article -eq 9 ]; then
+        add_data_to_section 'imdb ratings text'
+        add_data_to_section 'imdb ratings list'
     fi
 }
 
@@ -170,4 +177,5 @@ add_data_to_article 4
 add_data_to_article 5
 add_data_to_article 6
 add_data_to_article 8
+add_data_to_article 9
 
