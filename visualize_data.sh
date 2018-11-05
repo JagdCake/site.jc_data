@@ -68,6 +68,23 @@ rating_stars() {
     done
 }
 
+ratings_adjective() {
+    rating_stars "${my_ratings[@]}"
+    my_stars=$stars
+    rating_stars "${my_imdb_ratings[@]}"
+    imdb_stars=$stars
+
+    if [ $my_stars -gt $imdb_stars ]; then
+        adjective='lower'
+    elif [ $my_stars -lt $imdb_stars ]; then
+        adjective='higher'
+    elif [ $my_stars -eq $imdb_stars ]; then
+        adjective='the same'
+    fi
+
+    echo "$adjective"
+}
+
 add_data_to_section() {
     section="$1"
 
