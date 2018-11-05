@@ -67,6 +67,11 @@ add_data_to_section() {
         add_data "top_genre" "$top_genre"
     elif [ "$section" == 'genre list' ]; then
         add_array_data  "movies_per_genre" "${movies_per_genre[@]}"
+    elif [ "$section" == 'years text' ]; then
+        add_data "movie_age_adjective" $(movie_age_adjective)
+        add_data "top_year" "$top_year"
+    elif [ "$section" == 'years list' ]; then
+        add_array_data "movies_per_decade" "${movies_per_decade[@]}"
     fi
 }
 
@@ -84,10 +89,14 @@ add_data_to_article() {
     elif [ $article -eq 3 ]; then
         add_data_to_section 'genre text'
         add_data_to_section 'genre list'
+    elif [ $article -eq 4 ]; then
+        add_data_to_section 'years text'
+        add_data_to_section 'years list'
     fi
 }
 
 add_data_to_article 1
 add_data_to_article 2
 add_data_to_article 3
+add_data_to_article 4
 
