@@ -379,6 +379,8 @@ elif [ "$option" == 'generate' ]; then
     date "+%F" >> "$last_update_file"
 elif [ "$option" == 'show' ]; then
     show
+elif [ "$option" == 'visualize' ]; then
+    show > /dev/null
 elif [ "$option" == 'help' ]; then
     usage
 else
