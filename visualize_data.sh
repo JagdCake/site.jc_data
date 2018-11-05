@@ -34,3 +34,11 @@ add_data_to_section() {
     fi
 }
 
+add_data_to_article() {
+    article=$1
+
+    if [ $article -eq 1 ]; then
+        add_data_to_section 'dates'
+    fi
+}
+
