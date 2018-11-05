@@ -85,6 +85,10 @@ add_data_to_section() {
         add_data "top_actor" "$top_actor"
     elif [ "$section" == 'actor list' ]; then
         add_array_data  "movie_actors" "${movie_actors[@]}"
+    elif [ "$section" == 'my ratings text' ]; then
+        add_data "my_top_rating" "$(echo $my_top_rating | pluralize)"
+    elif [ "$section" == 'my ratings list' ]; then
+        add_array_data "my_ratings" "${my_ratings[@]}"
     fi
 }
 
@@ -111,6 +115,9 @@ add_data_to_article() {
     elif [ $article -eq 6 ]; then
         add_data_to_section 'actor text'
         add_data_to_section 'actor list'
+    elif [ $article -eq 7 ]; then
+        add_data_to_section 'my ratings text'
+        add_data_to_section 'my ratings list'
     fi
 }
 
@@ -120,4 +127,5 @@ add_data_to_article 3
 add_data_to_article 4
 add_data_to_article 5
 add_data_to_article 6
+add_data_to_article 7
 
