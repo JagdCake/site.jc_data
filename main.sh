@@ -174,6 +174,8 @@ find_the_property() {
 
     # runs only when new IDs have been appended
     if [[ $number_of_new_ids -gt 0 && $number_of_ids_after -ne $number_of_new_ids ]]; then
+        # TODO Fix:
+        # this is the number of new movie IDs, but the number of actor IDs is double that, while director IDs vary, so not all actor / director names are appended to their respective files
         tail -n $number_of_new_ids "$ids_file" > /tmp/updated_ids_file
         ids_file=/tmp/updated_ids_file
 
