@@ -35,6 +35,18 @@ cast_data="$raw_data_dir"/title.principals.tsv
 ratings_data="$raw_data_dir"/title.ratings.tsv
 ### ###
 
+check_for_datafiles() {
+    datafiles=("$basics_data" "$crew_data" "$names_data" "$cast_data" "$ratings_data")
+
+    for datafile in "${datafiles[@]}"; do
+        if [ ! -L "$datafile" ]; then
+            echo "Datafile is missing: $datafile"
+            echo 'Please run ./main.sh download'
+            exit 1
+        fi
+    done
+}
+
 download_data() {
     mode="$1"
 
@@ -390,6 +402,7 @@ if [ "$option" == 'download' ]; then
 elif [ "$option" == 'refresh' ]; then
     download_data 'refresh'
 elif [ "$option" == 'generate' ]; then
+    check_for_datafiles
     find_movie_ids
     find_the_property 'director IDs'
     find_the_property 'genres'
