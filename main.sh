@@ -135,6 +135,33 @@ append_the_property() {
     fi
 }
 
+# create ID files containing only newly added IDs
+create_updated_id_files() {
+    if [ "$property" == 'director IDs' ]; then
+        tail -n $number_of_new_ids "$ids_file" > /tmp/updated_ids_file
+        ids_file=/tmp/updated_ids_file
+
+        # count the number of directors for every newly added movie
+        for id in $(bat "$ids_file"); do
+            # 1 comma = 1 extra director
+            number_of_commas=$(rg -N "$id" "$datafile" | select_the_property | rg --count-matches ',' || echo 0)
+            ((extra_director_ids=$extra_director_ids + $number_of_commas))
+        done
+    elif [ "$property" == 'directors' ]; then
+        ((number_of_new_director_ids=$number_of_new_ids + $extra_director_ids))
+        tail -n $number_of_new_director_ids "$ids_file" > /tmp/updated_ids_file
+        ids_file=/tmp/updated_ids_file
+    elif [ "$property" == 'actors' ]; then
+        # 2 actors for every movie
+        ((number_of_new_actor_ids=$number_of_new_ids * 2))
+        tail -n $number_of_new_actor_ids "$ids_file" > /tmp/updated_ids_file
+        ids_file=/tmp/updated_ids_file
+    else
+        tail -n $number_of_new_ids "$ids_file" > /tmp/updated_ids_file
+        ids_file=/tmp/updated_ids_file
+    fi
+}
+
 find_the_property() {
     property="$1"
 
@@ -174,11 +201,7 @@ find_the_property() {
 
     # runs only when new IDs have been appended
     if [[ $number_of_new_ids -gt 0 && $number_of_ids_after -ne $number_of_new_ids ]]; then
-        # TODO Fix:
-        # this is the number of new movie IDs, but the number of actor IDs is double that, while director IDs vary, so not all actor / director names are appended to their respective files
-        tail -n $number_of_new_ids "$ids_file" > /tmp/updated_ids_file
-        ids_file=/tmp/updated_ids_file
-
+        create_updated_id_files
         append_the_property
     # runs only the first time or if the processed data files have been deleted
     elif [ $number_of_ids_after -eq $number_of_new_ids ]; then
