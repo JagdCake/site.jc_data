@@ -90,6 +90,12 @@ find_movie_ids() {
 
     number_of_ids_after=$(bat "$movie_ids_file" | wc -l)
     ((number_of_new_ids=$number_of_ids_after - $number_of_ids_before))
+
+    if [ $number_of_new_ids -gt 0 ]; then
+        echo "$number_of_new_ids movies have been added."
+    else
+        echo 'No new movies added.'
+    fi
 }
 
 find_my_ratings() {
