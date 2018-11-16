@@ -35,6 +35,16 @@ cast_data="$raw_data_dir"/title.principals.tsv
 ratings_data="$raw_data_dir"/title.ratings.tsv
 ### ###
 
+dependency_check() {
+    dependencies=(rg pigz bat udunits2)
+
+    for dependency in "${dependencies[@]}"; do
+        if [ ! $(which "$dependency" 2>/dev/null) ]; then
+            echo >&2 -e "Dependency: \"$dependency\" is not installed."; exit 1
+        fi
+    done
+}
+
 check_for_datafiles() {
     datafiles=("$basics_data" "$crew_data" "$names_data" "$cast_data" "$ratings_data")
 
@@ -402,6 +412,8 @@ usage() {
   printf "\t  help\t\tShow help screen."
   printf "\n\n"
 }
+
+dependency_check
 
 if [ "$option" == 'download' ]; then
     download_data
