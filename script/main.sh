@@ -5,7 +5,7 @@ option="$1"
 ### File Paths ###
 movies_html_file=~/Documents/web_dev/3_my_sites/iwam/index.html
 
-processed_data_dir=~/Documents/my_github/site.movies.get_data/processed_data/
+processed_data_dir=~/Documents/web_dev/3_my_sites/data/script/processed_data/
 last_update_file="$processed_data_dir"/last_update
 
 movie_ids_file="$processed_data_dir"/movie_ids
@@ -22,7 +22,7 @@ imdb_ratings_file="$processed_data_dir"/imdb_ratings
 
 # datafiles
 raw_data_storage_dir=~/Desktop/
-raw_data_dir=~/Documents/my_github/site.movies.get_data/raw_data/
+raw_data_dir=~/Documents/web_dev/3_my_sites/data/script/raw_data/
 # basic movie information
 basics_data="$raw_data_dir"/title.basics.tsv
 # ids of the director(s) and writer(s)
