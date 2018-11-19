@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 option="$1"
 
