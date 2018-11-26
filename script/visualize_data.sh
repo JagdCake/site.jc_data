@@ -85,97 +85,66 @@ ratings_adjective() {
     echo "$adjective"
 }
 
-add_data_to_section() {
-    section="$1"
+# Article 1
+# section dates
+add_data "date_last_update_machine" "$date_last_update_machine"
+add_data "date_last_update_human" "$date_last_update_human"
+add_data "movie_number" "$movie_number"
+# section days
+add_data "total_days_machine" "$total_days"
+add_data "total_days" "$total_days"
+add_data "total_days_spent_machine" "$total_days_spent"
+add_data "total_days_spent" "$total_days_spent"
+add_data "percent_of_total_days" "$percent_of_total_days"
+# section hours
+add_data "total_hours_and_mins_machine" "$total_hours_and_mins_machine"
+add_data "total_hours_and_mins" "$total_hours_and_mins"
 
-    if [ "$section" == 'dates' ]; then
-        add_data "date_last_update_machine" "$date_last_update_machine"
-        add_data "date_last_update_human" "$date_last_update_human"
-        add_data "movie_number" "$movie_number"
-    elif [ "$section" == 'days' ]; then
-        add_data "total_days_machine" "$total_days"
-        add_data "total_days" "$total_days"
-        add_data "total_days_spent_machine" "$total_days_spent"
-        add_data "total_days_spent" "$total_days_spent"
-        add_data "percent_of_total_days" "$percent_of_total_days"
-    elif [ "$section" == 'hours' ]; then
-        add_data "total_hours_and_mins_machine" "$total_hours_and_mins_machine"
-        add_data "total_hours_and_mins" "$total_hours_and_mins"
-    elif [ "$section" == 'runtime long' ]; then
-        add_data "longest_movie_runtime_machine" "$longest_movie_runtime_machine"
-        add_data "longest_movie_runtime" "$longest_movie_runtime"
-    elif [ "$section" == 'runtime short' ]; then
-        add_data "shortest_movie_runtime_machine" "$shortest_movie_runtime_machine"
-        add_data "shortest_movie_runtime" "$shortest_movie_runtime"
-    elif [ "$section" == 'runtime average' ]; then
-        add_data "average_runtime_machine" "$average_runtime_machine"
-        add_data "average_runtime" "$average_runtime"
-    elif [ "$section" == 'genre text' ]; then
-        add_data "top_genre" "$top_genre"
-    elif [ "$section" == 'genre list' ]; then
-        add_array_data  "movies_per_genre" "${movies_per_genre[@]}"
-    elif [ "$section" == 'years text' ]; then
-        add_data "movie_age_adjective" $(movie_age_adjective)
-        add_data "top_year" "$top_year"
-    elif [ "$section" == 'years list' ]; then
-        add_array_data "movies_per_decade" "${movies_per_decade[@]}"
-    elif [ "$section" == 'director text' ]; then
-        add_data "top_director" "$top_director"
-    elif [ "$section" == 'director list' ]; then
-        add_array_data  "movie_directors" "${movie_directors[@]}"
-    elif [ "$section" == 'actor text' ]; then
-        add_data "top_actor" "$top_actor"
-    elif [ "$section" == 'actor list' ]; then
-        add_array_data  "movie_actors" "${movie_actors[@]}"
-    elif [ "$section" == 'my ratings text' ]; then
-        add_data "my_top_rating" "$(echo $my_top_rating | pluralize)"
-    elif [ "$section" == 'my ratings list' ]; then
-        add_array_data "my_ratings" "${my_ratings[@]}"
-    elif [ "$section" == 'imdb ratings text' ]; then
-        add_data "ratings_adjective" "$(ratings_adjective)"
-    elif [ "$section" == 'imdb ratings list' ]; then
-        add_array_data "my_imdb_ratings" "${my_imdb_ratings[@]}"
-    fi
-}
+# Article 2
+# section runtime long
+add_data "longest_movie_runtime_machine" "$longest_movie_runtime_machine"
+add_data "longest_movie_runtime" "$longest_movie_runtime"
+# section runtime short
+add_data "shortest_movie_runtime_machine" "$shortest_movie_runtime_machine"
+add_data "shortest_movie_runtime" "$shortest_movie_runtime"
+# section runtime average
+add_data "average_runtime_machine" "$average_runtime_machine"
+add_data "average_runtime" "$average_runtime"
 
-add_data_to_article() {
-    article=$1
+# Article 3
+# section genre text
+add_data "top_genre" "$top_genre"
+# section genre list
+add_array_data "movies_per_genre" "${movies_per_genre[@]}"
 
-    if [ $article -eq 1 ]; then
-        add_data_to_section 'dates'
-        add_data_to_section 'days'
-        add_data_to_section 'hours'
-    elif [ $article -eq 2 ]; then
-        add_data_to_section 'runtime long'
-        add_data_to_section 'runtime short'
-        add_data_to_section 'runtime average'
-    elif [ $article -eq 3 ]; then
-        add_data_to_section 'genre text'
-        add_data_to_section 'genre list'
-    elif [ $article -eq 4 ]; then
-        add_data_to_section 'years text'
-        add_data_to_section 'years list'
-    elif [ $article -eq 5 ]; then
-        add_data_to_section 'director text'
-        add_data_to_section 'director list'
-    elif [ $article -eq 6 ]; then
-        add_data_to_section 'actor text'
-        add_data_to_section 'actor list'
-    elif [ $article -eq 8 ]; then
-        add_data_to_section 'my ratings text'
-        add_data_to_section 'my ratings list'
-    elif [ $article -eq 9 ]; then
-        add_data_to_section 'imdb ratings text'
-        add_data_to_section 'imdb ratings list'
-    fi
-}
+# Article 4
+# section years text
+add_data "movie_age_adjective" $(movie_age_adjective)
+add_data "top_year" "$top_year"
+# section years list
+add_array_data "movies_per_decade" "${movies_per_decade[@]}"
 
-add_data_to_article 1
-add_data_to_article 2
-add_data_to_article 3
-add_data_to_article 4
-add_data_to_article 5
-add_data_to_article 6
-add_data_to_article 8
-add_data_to_article 9
+# Article 5
+# section director text
+add_data "top_director" "$top_director"
+# section director list
+add_array_data "movie_directors" "${movie_directors[@]}"
+
+# Article 6
+# section actor text
+add_data "top_actor" "$top_actor"
+# section actor list
+add_array_data "movie_actors" "${movie_actors[@]}"
+
+# Article 8
+# section my ratings text
+add_data "my_top_rating" "$(echo $my_top_rating | pluralize)"
+# section my ratings list
+add_array_data "my_ratings" "${my_ratings[@]}"
+
+# Article 9
+# section imdb ratings text
+add_data "ratings_adjective" "$(ratings_adjective)"
+# section imdb ratings list
+add_array_data "my_imdb_ratings" "${my_imdb_ratings[@]}"
 
