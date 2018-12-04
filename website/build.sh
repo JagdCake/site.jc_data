@@ -2,9 +2,9 @@
 
 build_script_dir=~/Documents/my_github/shell_scripts/scripts/
 
-project_dir=replace
-production_dir="$project_dir"/replace
-template_dir=replace
+project_dir=~/Documents/web_dev/3_my_sites/data/website/
+production_dir="$project_dir"/public/
+template_dir=~/Documents/web_dev/1_templates/static_site/
 
 html_dir=
 css_dir=css
@@ -22,17 +22,17 @@ build() {
 copy_files() {
     mkdir "$production_dir"/
 
-    cp -r "$project_dir/$html_dir"/ "$production_dir/$html_dir"/
-    cp -r "$project_dir/$css_dir"/ "$production_dir/$css_dir"/
-    cp -r "$project_dir/$js_dir"/ "$production_dir/$js_dir"/
+    cp -r "$project_dir/$html_dir"/index.html "$production_dir/$html_dir"/
+    # cp -r "$project_dir/$css_dir"/ "$production_dir/$css_dir"/
+    # cp -r "$project_dir/$js_dir"/ "$production_dir/$js_dir"/
     cp -r "$project_dir/$images_dir"/ "$production_dir/$images_dir"/
 }
 
 build_all() {
     build html "$production_dir/$html_dir"/ "$production_dir/$html_dir"/
-    build css "$production_dir/$css_dir"/ "$production_dir/$css_dir"/
-    build js "$production_dir/$js_dir"/ "$production_dir/$js_dir"/
-    build svg "$production_dir/$images_dir"/ "$production_dir/$images_dir"/
+    # build css "$production_dir/$css_dir"/ "$production_dir/$css_dir"/
+    # build js "$production_dir/$js_dir"/ "$production_dir/$js_dir"/
+    # build svg "$production_dir/$images_dir"/ "$production_dir/$images_dir"/
     build png "$production_dir/$images_dir"/ "$production_dir/$images_dir"/
 }
 
@@ -61,6 +61,6 @@ copy_production_files() {
 
 copy_files
 build_all
-update_paths
+# update_paths
 copy_production_files '404.html' ''
 
