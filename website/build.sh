@@ -3,7 +3,7 @@
 build_script_dir=~/Documents/my_github/shell_scripts/scripts/
 
 project_dir=~/Documents/web_dev/3_my_sites/data/website/
-production_dir="$project_dir"/public/
+production_dir="$project_dir"/../docs/
 template_dir=~/Documents/web_dev/1_templates/static_site/
 
 html_dir=
