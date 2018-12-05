@@ -1,12 +1,12 @@
 source main.sh visualize
 
-index_file=../website/index.html
+website=../docs/index.html
 
 add_data() {
     keyword="$1"
     data="$2"
 
-    sed -i "s/$keyword/$data/" "$index_file"
+    sed -i "s/$keyword/$data/" "$website"
 }
 
 pluralize() {
@@ -24,7 +24,7 @@ add_array_data() {
         data_arr+=("<li>${i}<\/li>")
     done
 
-    sed -i "s/$keyword/$(echo -n ${data_arr[@]})/" "$index_file"
+    sed -i "s/$keyword/$(echo -n ${data_arr[@]})/" "$website"
 
     data_arr=()
 }
