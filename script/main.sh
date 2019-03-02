@@ -70,7 +70,7 @@ download_data() {
     else
         for datafile in "${datafiles[@]}"; do
             datafile_name=$(echo "$datafile" | awk -F'/' '{ print $NF }' | awk -F'.gz' '{ print $1 }')
-            exa "$raw_data_dir"/"$datafile_name" > /dev/null 2>&1
+            exa "$raw_data_storage_dir"/"$datafile_name" > /dev/null 2>&1
 
             # check if the datafile hasn't already been downloaded
             if [ $? != 0 ]; then
