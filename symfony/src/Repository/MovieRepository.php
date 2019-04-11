@@ -19,6 +19,17 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
+    public function getNumberOfMovies(): string
+    {
+        $entityManager = $this->getEntityManager();
+
+        $countQuery= $entityManager->createQueryBuilder('m')
+            ->select('count(m)')
+            ->from('App:Movie', 'm')
+            ->getQuery();
+
+        return $countQuery->getSingleScalarResult();
+    }
     // /**
     //  * @return Movie[] Returns an array of Movie objects
     //  */
