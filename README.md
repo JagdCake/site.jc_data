@@ -1,5 +1,7 @@
 <h1 align="center">JC Data</h1>
 
+## Currently in the process of replacing the scripts with Symfony 4 + PostgreSQL — [here](./symfony).
+
 ### In short:
 - I'm using a BASH shell script to extract and process data from my website [“I watched a Movie!”](https://movies.jagdcake.com/)
 - majority of the data comes from IMDb datasets, available [here](https://www.imdb.com/interfaces/)
