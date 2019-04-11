@@ -1,7 +1,7 @@
 <article id="1" class="bg-light-gray tl ph4 w-60-m w-25-l ma4-ns ba-ns bw1-ns self-start-ns">
     <a href="#1" class="db tc w1 h1 center"></a>
     <section class="pv2">
-        <p>From <time datetime="2016-06" class="code pa1 bg-dark-purple light-gray b">June 2016</time> until <time datetime="date_last_update_machine" class="code pa1 bg-dark-purple light-gray b">date_last_update_human</time>, I've watched <strong class="code pa1 bg-dark-purple light-gray">{{ movieData.numberOfMovies }} movies</strong>.</p>
+        <p>From <time datetime="2016-06" class="code pa1 bg-dark-purple light-gray b">June 2016</time> until <time datetime="{{ movieData.lastUpdate }}" class="code pa1 bg-dark-purple light-gray b">{{ movieData.lastUpdate | date('M d Y') }}</time>, I've watched <strong class="code pa1 bg-dark-purple light-gray">{{ movieData.numberOfMovies }} movies</strong>.</p>
    </section>
 
     <section class="pv2 bt bb-0 bl-0 br-0 bw1 b--dashed">
