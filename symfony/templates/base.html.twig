@@ -1,12 +1,56 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
+
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta name="Author" content="JagdCake" />
+    <meta name="Keywords" content="HTML5, CSS3, No JavaScript, Tachyons CSS" />
+    <meta name="Description" content="Data Website" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'; style-src 'unsafe-inline' 'self'; connect-src 'self'; img-src 'self'; upgrade-insecure-requests">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    {% block stylesheet %}
+        <link rel="stylesheet" href="/css/tachyons.min.css"/>
+    {% endblock %}
+    <title>JC Data – {% block subTitle %}{% endblock %}</title>
+    <style>
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+    <body>        
+        <header class="tc pa2">
+            <h1 class="f4 di mt0">View data from:</h1>
+            <nav class="b di">
+                <ul class="pa0 di">
+                    <li class="di"><a href="{{ path('index') }}" class="color-inherit pa2 pb1 no-underline bb bw2">movies.jagdcake.com</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <details class="w-40-l w-80-m w-100 center f4 lh-copy mt2-ns mb0-ns mb3">
+            <summary class="tc f2 pointer">What is this?</summary>
+            <div class="ba-ns bt-0-ns bw1-ns ph2-ns ph3 pv1">
+                <p class="mt0 mb3">A bunch of data, visualized using text, numbers and lists. At the moment, there is only one data source to choose from and that's my <a class="color-inherit" href="https://movies.jagdcake.com">“I watched a Movie!”</a> website.</p>
+                <p class="mv3">All of the information is derived from movies I've watched / rewatched. Not very extensive but I believe a fair representation of my film-viewing habit.</p>
+                <p class="mv3">The data is separated into cards based on a common theme. Basic numbers info, list cards — one-sentence overview followed by a top 10 (max) list.</p>
+                <p class="mt3 mb0">For technical details, including data extraction and processing methods, visit the <a class="color-inherit" href="https://github.com/JagdCake/site.jc_data">GitHub repo</a>.</p>
+            </div>
+        </details>        
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        <footer class="pt2 pb4 tc">
+            <address class="fs-normal">
+                <h1 class="di f4 mt0">Contact:</h1>
+                <span class="f4" id="email"><span>jc</span>@<span>jagdcake</span>.com</span>
+            </address>
+
+            <section class="pt2">
+                <h1 class="di f4 mt0">Repository:</h1>
+                <a class="f4 color-inherit" href="https://github.com/JagdCake/site.jc_data">GitHub</a>
+            </section>
+        </footer>
     </body>
 </html>
