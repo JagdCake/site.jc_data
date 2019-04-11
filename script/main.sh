@@ -36,7 +36,7 @@ ratings_data="$raw_data_dir"/title.ratings.tsv
 ### ###
 
 dependency_check() {
-    dependencies=(rg pigz bat udunits2)
+    dependencies=(rg pigz bat)
 
     for dependency in "${dependencies[@]}"; do
         if [ ! $(which "$dependency" 2>/dev/null) ]; then
