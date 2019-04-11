@@ -31,10 +31,31 @@ class MovieRepository extends ServiceEntityRepository
         return $countQuery->getSingleScalarResult();
     }
 
+    public function getLastUpdate(): string
+    {
+        $entityManager = $this->getEntityManager();
+        $idQuery= $entityManager->createQueryBuilder('m')
+            ->select('max(m.id)')
+            ->from('App:Movie', 'm')
+            ->getQuery();
+
+        $lastId = $idQuery->getSingleScalarResult();
+
+        $dateQuery = $entityManager->createQueryBuilder('m')
+            ->select('m.updatedAt')
+            ->from('App:Movie', 'm')
+            ->where('m.id = :lastId')
+            ->setParameter('lastId', $lastId)
+            ->getQuery();
+
+        return $dateQuery->getSingleScalarResult();
+    }
+
     public function getAllData(): array
     {
         return [
             'numberOfMovies' => $this->getNumberOfMovies(),
+            'lastUpdate' => $this->getLastUpdate(),
         ];
     }
     // /**
