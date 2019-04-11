@@ -149,7 +149,7 @@ append_the_property() {
     if [ "$property" != 'actor IDs' ]; then
         for id in $(bat "$ids_file"); do
             # adding the '-N' flag seems to make ripgrep a bit faster
-            rg -N "$id" "$datafile" | select_the_property >> "$output_file"
+            rg -N -e "$id\t" "$datafile" | select_the_property >> "$output_file"
         done
     else
         for id in $(bat "$ids_file"); do
