@@ -18,7 +18,7 @@ class MovieDataController extends AbstractController
     public function index(MovieRepository $repo): Response
     {
         return $this->render('movie_data/index.html.twig', [
-            'movie_data' => $repo->findAll(),
+            'movieData' => $repo->getAllData(),
         ]);
     }
 }

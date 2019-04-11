@@ -30,6 +30,13 @@ class MovieRepository extends ServiceEntityRepository
 
         return $countQuery->getSingleScalarResult();
     }
+
+    public function getAllData(): array
+    {
+        return [
+            'numberOfMovies' => $this->getNumberOfMovies(),
+        ];
+    }
     // /**
     //  * @return Movie[] Returns an array of Movie objects
     //  */
