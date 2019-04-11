@@ -6,7 +6,7 @@
 
     {% set difference = date(movieData.lastUpdate).diff(date('2016-06-01')) %}
     <section class="pv2 bt bb-0 bl-0 br-0 bw1 b--dashed">
-        <p>Out of <time datetime="{{ difference.days }}d" class="code pa1 bg-dark-purple light-gray b">{{ difference.days }}</time> days, I've spent <time datetime="total_days_spent_machined" class="code pa1 bg-dark-purple light-gray b">total_days_spent</time> watching films. That's <em class="code pa1 bg-dark-purple light-gray b fs-normal">percent_of_total_days%</em> of my time.</p>
+        <p>Out of <time datetime="{{ difference.days }}d" class="code pa1 bg-dark-purple light-gray b">{{ difference.days }}</time> days, I've spent <time datetime="{{ movieData.totalDaysSpent }}d" class="code pa1 bg-dark-purple light-gray b">{{ movieData.totalDaysSpent }}</time> watching films. That's <em class="code pa1 bg-dark-purple light-gray b fs-normal">percent_of_total_days%</em> of my time.</p>
    </section>
 
     <section class="pv2 bt bb-0 bl-0 br-0 bw1 b--dashed">

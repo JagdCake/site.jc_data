@@ -51,11 +51,26 @@ class MovieRepository extends ServiceEntityRepository
         return $dateQuery->getSingleScalarResult();
     }
 
+    public function getTotalDaysSpent(): string
+    {
+        $entityManager = $this->getEntityManager();
+
+        $totalRuntimeQuery= $entityManager->createQueryBuilder('m')
+            ->select('sum(m.runtime)')
+            ->from('App:Movie', 'm')
+            ->getQuery();
+
+        $totalRuntime = $totalRuntimeQuery->getSingleScalarResult();
+
+        return round($totalRuntime / 1440);
+    }
+
     public function getAllData(): array
     {
         return [
             'numberOfMovies' => $this->getNumberOfMovies(),
             'lastUpdate' => $this->getLastUpdate(),
+            'totalDaysSpent' => $this->getTotalDaysSpent(),
         ];
     }
     // /**
