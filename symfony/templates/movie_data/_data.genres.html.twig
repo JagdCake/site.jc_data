@@ -1,13 +1,13 @@
 <article id="3" class="bg-light-gray tl ph4 w-60-m w-25-l ma4-ns ba-ns bw1-ns self-start-ns">
     <a href="#3" class="db tc w1 h1 center"></a>
     <section class="pv2">
-        <p>I mostly watch <em class="code pa1 bg-dark-purple light-gray b fs-normal">{{ movieData.genres.topGenre }}</em> movies, but I'm open to every genre.</p>
+        <p>I mostly watch <em class="code pa1 bg-dark-purple light-gray b fs-normal">{{ movieData.topGenres[0].genre }}</em> movies, but I'm open to every genre.</p>
    </section>
 
     <section class="pv2 bt bb-0 bl-0 br-0 bw1 b--dashed">
         <h1 class="f4 mb0">Number of movies per genre:</h1>
         <ul>
-            {% for genreData in movieData.genres.topGenres %}
+            {% for genreData in movieData.topGenres %}
                 <li class="pa1 flex justify-between">
                     <span>{{ genreData.genre }}</span>
                     <span class="code b">{{ genreData[1] }}</span>
