@@ -94,6 +94,7 @@ class MovieRepository extends ServiceEntityRepository
             'totalTimeSpent' => $this->getTotalTimeSpent(),
             'longestMovie' => $this->getRuntime('max'),
             'shortestMovie' => $this->getRuntime('min'),
+            'averageRuntime' => $this->getRuntime('avg'),
         ];
     }
     // /**

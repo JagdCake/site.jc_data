@@ -12,6 +12,6 @@
 
     <section class="pv2 bt bb-0 bl-0 br-0 bw1 b--dashed">
         <h1 class="f4 mb0">Average runtime:</h1>
-        <p class="mt0"><time datetime="average_runtime_machine" class="code pa1 bg-dark-purple light-gray b">average_runtime</time></p>
+        <p class="mt0"><time datetime="{{ movieData.averageRuntime.hours }}h {{ movieData.averageRuntime.minutes }}m" class="code pa1 bg-dark-purple light-gray b">{{ movieData.averageRuntime.hours }} hours and {{ movieData.averageRuntime.minutes }} minutes</time></p>
    </section>
 </article>
