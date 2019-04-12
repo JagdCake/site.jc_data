@@ -64,7 +64,7 @@ class MovieRepository extends ServiceEntityRepository
 
         return [
             'days' => round($totalRuntime / 1440),
-            'hours' => round($totalRuntime / 60),
+            'hours' => floor($totalRuntime / 60),
             'remainingMinutes' => $totalRuntime % 60,
         ];
     }
