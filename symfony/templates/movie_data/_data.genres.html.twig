@@ -6,13 +6,13 @@
 
     <section class="pv2 bt bb-0 bl-0 br-0 bw1 b--dashed">
         <h1 class="f4 mb0">Number of movies per genre:</h1>
-            <ul>
-                {% for genreData in movieData.genres.topGenres %}
-                    <li class="pa1 flex justify-between">
-                        <span>{{ genreData.genre }}</span>
-                        <span class="code b">{{ genreData[1] }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
+        <ul>
+            {% for genreData in movieData.genres.topGenres %}
+                <li class="pa1 flex justify-between">
+                    <span>{{ genreData.genre }}</span>
+                    <span class="code b">{{ genreData[1] }}</span>
+                </li>
+            {% endfor %}
+        </ul>
    </section>
 </article>
