@@ -1,11 +1,18 @@
 <article id="6" class="bg-light-gray tl ph4 w-60-m w-25-l ma4-ns ba-ns bw1-ns self-start-ns">
     <a href="#6" class="db tc w1 h1 center"></a>
     <section class="pv2">
-        <p>Looks like <em class="code pa1 bg-dark-purple light-gray b fs-normal">top_actor</em> is popular.</p>
+        <p>Looks like <em class="code pa1 bg-dark-purple light-gray b fs-normal">{{ movieData.topActors[0].principal }}</em> is popular.</p>
    </section>
 
     <section class="pv2 bt bb-0 bl-0 br-0 bw1 b--dashed">
         <h1 class="f4 mb0">Number of movies starring:</h1>
-        <ul>movie_actors</ul>
+        <ul>
+            {% for actorData in movieData.topActors %}
+                <li class="pa1 flex justify-between">
+                    <span>{{ actorData.principal }}</span>
+                    <span class="code b">{{ actorData.count }}</span>
+                </li>
+            {% endfor %}
+        </ul>
    </section>
 </article>

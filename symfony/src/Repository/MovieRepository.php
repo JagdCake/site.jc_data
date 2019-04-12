@@ -129,6 +129,7 @@ class MovieRepository extends ServiceEntityRepository
             'shortestMovie' => $this->getRuntime('min'),
             'averageRuntime' => $this->getRuntime('avg'),
             'topGenres' => $this->getGenres(),
+            'topActors' => $this->getPrincipals('top_actors'),
         ];
     }
     // /**
