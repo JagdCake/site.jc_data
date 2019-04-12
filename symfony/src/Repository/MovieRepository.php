@@ -34,21 +34,13 @@ class MovieRepository extends ServiceEntityRepository
     public function getLastUpdate(): string
     {
         $entityManager = $this->getEntityManager();
-        $idQuery= $entityManager->createQueryBuilder('m')
-            ->select('max(m.id)')
+
+        $lastUpdateQuery = $entityManager->createQueryBuilder('m')
+            ->select('max(m.updatedAt)')
             ->from('App:Movie', 'm')
             ->getQuery();
 
-        $lastId = $idQuery->getSingleScalarResult();
-
-        $dateQuery = $entityManager->createQueryBuilder('m')
-            ->select('m.updatedAt')
-            ->from('App:Movie', 'm')
-            ->where('m.id = :lastId')
-            ->setParameter('lastId', $lastId)
-            ->getQuery();
-
-        return $dateQuery->getSingleScalarResult();
+        return $lastUpdateQuery->getSingleScalarResult();
     }
 
     public function getTotalTimeSpent(): array
