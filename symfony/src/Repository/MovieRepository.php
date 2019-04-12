@@ -69,12 +69,32 @@ class MovieRepository extends ServiceEntityRepository
         ];
     }
 
+    public function getRuntimes(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $longestRuntimeQuery= $entityManager->createQueryBuilder('m')
+            ->select('max(m.runtime)')
+            ->from('App:Movie', 'm')
+            ->getQuery();
+
+        $longestRuntime = $longestRuntimeQuery->getSingleScalarResult();
+
+        return [
+            'longestMovie' => [
+                'hours' => floor($longestRuntime / 60),
+                'minutes' => $longestRuntime % 60,
+            ],
+        ];
+    }
+
     public function getAllData(): array
     {
         return [
             'numberOfMovies' => $this->getNumberOfMovies(),
             'lastUpdate' => $this->getLastUpdate(),
             'totalTimeSpent' => $this->getTotalTimeSpent(),
+            'runtimes' => $this->getRuntimes(),
         ];
     }
     // /**
