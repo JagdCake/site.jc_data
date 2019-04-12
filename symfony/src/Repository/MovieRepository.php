@@ -130,6 +130,7 @@ class MovieRepository extends ServiceEntityRepository
             'averageRuntime' => $this->getRuntime('avg'),
             'topGenres' => $this->getGenres(),
             'topActors' => $this->getPrincipals('top_actors'),
+            'topDirectors' => $this->getPrincipals('directors'),
         ];
     }
     // /**
