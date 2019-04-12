@@ -100,8 +100,19 @@ class MovieRepository extends ServiceEntityRepository
 
         $topGenre = $topGenreQuery->getScalarResult();
 
+        $topGenresQuery= $entityManager->createQueryBuilder('m')
+            ->select('m.genre, count(m.genre)')
+            ->from('App:Movie', 'm')
+            ->groupBy('m.genre')
+            ->orderBy('count(m.genre)', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery();
+
+        $topGenres = $topGenresQuery->getScalarResult();
+
         return [
             'topGenre' => $topGenre[0]['genre'],
+            'topGenres' => $topGenres,
         ];
     }
 
