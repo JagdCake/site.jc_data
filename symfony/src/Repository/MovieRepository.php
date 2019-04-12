@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Movie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
  * @method Movie|null find($id, $lockMode = null, $lockVersion = null)
@@ -93,6 +94,29 @@ class MovieRepository extends ServiceEntityRepository
         $topGenres = $topGenresQuery->getScalarResult();
 
         return $topGenres;
+    }
+
+    public function getPrincipals(string $principals): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $rsm = new ResultSetMapping($entityManager);
+        $rsm->addEntityResult('App\Entity\Movie', 'm');
+        $rsm->addFieldResult('m', $principals, $principals);
+        $rsm->addScalarResult('principal', 'principal');
+        $rsm->addScalarResult('count', 'count');
+
+        $topPrincipalsQuery = $entityManager->createNativeQuery(
+            "select unnest(string_to_array(".$principals.", ',')) as principal, count(*) as count
+            from movie
+            group by unnest(string_to_array(".$principals.", ','))
+            order by count DESC
+            limit 10",
+            $rsm);
+
+        $topPrincipals = $topPrincipalsQuery->getScalarResult();
+
+        return $topPrincipals;
     }
 
     public function getAllData(): array
