@@ -91,9 +91,7 @@ class MovieRepository extends ServiceEntityRepository
             ->setMaxResults(10)
             ->getQuery();
 
-        $topGenres = $topGenresQuery->getScalarResult();
-
-        return $topGenres;
+        return $topGenresQuery->getScalarResult();
     }
 
     public function getPrincipals(string $principals): array
@@ -114,9 +112,7 @@ class MovieRepository extends ServiceEntityRepository
             limit 10",
             $rsm);
 
-        $topPrincipals = $topPrincipalsQuery->getScalarResult();
-
-        return $topPrincipals;
+        return $topPrincipalsQuery->getScalarResult();
     }
 
     public function getAllData(): array
