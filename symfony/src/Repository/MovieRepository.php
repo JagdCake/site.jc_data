@@ -150,6 +150,7 @@ class MovieRepository extends ServiceEntityRepository
             'topDirectors' => $this->getPrincipals('directors'),
             'topYear' => $this->getField('year_of_release', 'year', 1),
             'decades' => $this->getDecades(),
+            'myRatings' => $this->getField('my_rating', 'rating'),
         ];
     }
     // /**

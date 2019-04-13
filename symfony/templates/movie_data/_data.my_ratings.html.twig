@@ -1,11 +1,27 @@
 <article id="8" class="bg-light-gray tl ph4 w-60-m w-25-l ma4-ns ba-ns bw1-ns self-start-ns">
     <a href="#8" class="db tc w1 h1 center"></a>
     <section class="pv2">
-        <p>I watch a lot of <em class="code pa1 bg-dark-purple light-gray b fs-normal">my_top_rating</em>.</p>
+        <p>I watch a lot of <em class="code pa1 bg-dark-purple light-gray b fs-normal">{{ movieData.myRatings[0].rating |
+            replace({
+                'Lettuce': 'Lettuces',
+                'Savory': 'Savories',
+                'Onion': 'Onions',
+                'Tomato': 'Tomatoes',
+                'Carrot': 'Carrots',
+                'Eggplant': 'Eggplants',
+            })
+            }}</em>.</p>
    </section>
 
     <section class="pv2 bt bb-0 bl-0 br-0 bw1 b--dashed">
         <h1 class="f4 mb0">Number of movies per my rating system:</h1>
-        <ul>my_ratings</ul>
+        <ul>
+            {% for ratingsData in movieData.myRatings %}
+                <li class="pa1 flex justify-between">
+                    <span>{{ ratingsData.rating }}</span>
+                    <span class="code b">{{ ratingsData.count }}</span>
+                </li>
+            {% endfor %}
+        </ul>
    </section>
 </article>
