@@ -79,19 +79,19 @@ class MovieRepository extends ServiceEntityRepository
         ];
     }
 
-    public function getGenres(): array
+    public function getField(string $field, string $alias, int $results = 10): array
     {
         $entityManager = $this->getEntityManager();
 
-        $topGenresQuery= $entityManager->createQueryBuilder('m')
-            ->select('m.genre, count(m.genre) as count')
+        $fieldQuery= $entityManager->createQueryBuilder('m')
+            ->select('m.'.$field.' as '.$alias.', count(m) as count')
             ->from('App:Movie', 'm')
-            ->groupBy('m.genre')
-            ->orderBy('count(m.genre)', 'DESC')
-            ->setMaxResults(10)
+            ->groupBy('m.'.$field)
+            ->orderBy('count(m.'.$field.')', 'DESC')
+            ->setMaxResults($results)
             ->getQuery();
 
-        return $topGenresQuery->getScalarResult();
+        return $fieldQuery->getScalarResult();
     }
 
     public function getYears(): array
@@ -145,7 +145,7 @@ class MovieRepository extends ServiceEntityRepository
             'longestMovie' => $this->getRuntime('max'),
             'shortestMovie' => $this->getRuntime('min'),
             'averageRuntime' => $this->getRuntime('avg'),
-            'topGenres' => $this->getGenres(),
+            'topGenres' => $this->getField('genre', 'genre'),
             'topActors' => $this->getPrincipals('top_actors'),
             'topDirectors' => $this->getPrincipals('directors'),
             'decades' => $this->getYears(),
