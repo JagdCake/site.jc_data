@@ -31,7 +31,7 @@ class MovieDataController extends AbstractController
             'movieData' => $repo->getAllData(),
         ]);
 
-        $file = file_put_contents('../../docs/index.html', $content);
+        $file = file_put_contents('../docs/index.html', $content);
 
         return $this->redirectToRoute('index');
     }
