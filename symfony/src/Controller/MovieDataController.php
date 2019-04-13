@@ -21,4 +21,18 @@ class MovieDataController extends AbstractController
             'movieData' => $repo->getAllData(),
         ]);
     }
+
+    /**
+     * @Route("/generate", name="generateStaticSite", methods={"GET"})
+     */
+    public function generateStaticSite(MovieRepository $repo): Response
+    {
+        $content = $this->renderView('movie_data/index.html.twig', [
+            'movieData' => $repo->getAllData(),
+        ]);
+
+        $file = file_put_contents('../../docs/index.html', $content);
+
+        return $this->redirectToRoute('index');
+    }
 }
