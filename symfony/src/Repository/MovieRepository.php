@@ -205,6 +205,32 @@ class MovieRepository extends ServiceEntityRepository
         return $transRatings;
     }
 
+    public function calcRatingsScore(array $ratings): int
+    {
+        // points score
+        $score = 0;
+
+        foreach($ratings as $ratingData) {
+            if($ratingData['rating'] == 'Sublime Lettuce') {
+                $points = 6;
+            }elseif($ratingData['rating'] == 'Amazing Savory') {
+                $points = 5;
+            }elseif($ratingData['rating'] == 'Great Onion') {
+                $points = 4;
+            }elseif($ratingData['rating'] == 'Good Tomato') {
+                $points = 3;
+            }elseif($ratingData['rating'] == 'Decent Carrot') {
+                $points = 2;
+            }elseif($ratingData['rating'] == 'Bad Eggplant') {
+                $points = 1;
+            }
+
+            $score += $ratingData['count'] * $points;
+        }
+
+        return $score;
+    }
+
     public function getAllData(): array
     {
         return [
