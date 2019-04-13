@@ -231,6 +231,22 @@ class MovieRepository extends ServiceEntityRepository
         return $score;
     }
 
+    public function compareRatingScores(): string
+    {
+        $imdbScore = $this->calcRatingsScore($this->translateImdbRatings());
+        $myScore = $this->calcRatingsScore($this->getField('my_rating', 'rating'));
+
+        if($imdbScore > $myScore) {
+            $ratingAdjective = 'higher';
+        }elseif($imdbScore < $myScore) {
+            $ratingAdjective = 'lower';
+        }else {
+            $ratingAdjective = 'the same';
+        }
+
+        return $ratingAdjective;
+    }
+
     public function getAllData(): array
     {
         return [
@@ -247,6 +263,7 @@ class MovieRepository extends ServiceEntityRepository
             'decades' => $this->getDecades(),
             'myRatings' => $this->getField('my_rating', 'rating'),
             'imdbRatings' => $this->translateImdbRatings(),
+            'ratingAdjective' => $this->compareRatingScores(),
         ];
     }
     // /**
