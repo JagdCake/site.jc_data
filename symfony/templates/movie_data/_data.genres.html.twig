@@ -10,7 +10,7 @@
             {% for genreData in movieData.topGenres %}
                 <li class="pa1 flex justify-between">
                     <span>{{ genreData.genre }}</span>
-                    <span class="code b">{{ genreData[1] }}</span>
+                    <span class="code b">{{ genreData.count }}</span>
                 </li>
             {% endfor %}
         </ul>

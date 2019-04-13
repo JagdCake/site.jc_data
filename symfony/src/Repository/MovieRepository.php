@@ -84,7 +84,7 @@ class MovieRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $topGenresQuery= $entityManager->createQueryBuilder('m')
-            ->select('m.genre, count(m.genre)')
+            ->select('m.genre, count(m.genre) as count')
             ->from('App:Movie', 'm')
             ->groupBy('m.genre')
             ->orderBy('count(m.genre)', 'DESC')
