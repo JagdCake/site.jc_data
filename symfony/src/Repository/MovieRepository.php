@@ -136,6 +136,19 @@ class MovieRepository extends ServiceEntityRepository
         return $topPrincipalsQuery->getScalarResult();
     }
 
+    public function getAllImdbRatings(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $imdbRatingsQuery= $entityManager->createQueryBuilder('m')
+            ->select('m.imdb_rating as rating')
+            ->from('App:Movie', 'm')
+            ->orderBy('m.imdb_rating', 'DESC')
+            ->getQuery();
+
+        return $imdbRatingsQuery->getScalarResult();
+    }
+
     public function getAllData(): array
     {
         return [
