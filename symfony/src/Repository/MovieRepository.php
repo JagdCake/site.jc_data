@@ -94,6 +94,27 @@ class MovieRepository extends ServiceEntityRepository
         return $topGenresQuery->getScalarResult();
     }
 
+    public function getYears(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $rsm = new ResultSetMapping($entityManager);
+        $rsm->addEntityResult('App\Entity\Movie', 'm');
+        $rsm->addFieldResult('m', 'year_of_release', 'year_of_release');
+        $rsm->addScalarResult('decade', 'decade');
+        $rsm->addScalarResult('count', 'count');
+
+        $decadesQuery= $entityManager->createNativeQuery(
+            "select extract(decade from to_date(year_of_release::text, 'YYYY')) as decade, count(*) as count
+            from movie
+            group by extract(decade from to_date(year_of_release::text, 'YYYY'))
+            order by count DESC
+            limit 10",
+            $rsm);
+
+        return $decadesQuery->getScalarResult();
+    }
+
     public function getPrincipals(string $principals): array
     {
         $entityManager = $this->getEntityManager();
@@ -127,6 +148,7 @@ class MovieRepository extends ServiceEntityRepository
             'topGenres' => $this->getGenres(),
             'topActors' => $this->getPrincipals('top_actors'),
             'topDirectors' => $this->getPrincipals('directors'),
+            'decades' => $this->getYears(),
         ];
     }
     // /**
