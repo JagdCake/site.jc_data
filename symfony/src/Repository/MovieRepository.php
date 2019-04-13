@@ -149,6 +149,62 @@ class MovieRepository extends ServiceEntityRepository
         return $imdbRatingsQuery->getScalarResult();
     }
 
+    public function translateImdbRatings(): array
+    {
+        $imdbRatings = $this->getAllImdbRatings();
+
+        $transRatings = [
+            0 => [
+                'rating' => 'Sublime Lettuce',
+                'count' => 0,
+            ],
+            1 => [
+                'rating' => 'Amazing Savory',
+                'count' => 0,
+            ],
+            2 => [
+                'rating' => 'Great Onion',
+                'count' => 0,
+            ],
+            3 => [
+                'rating' => 'Good Tomato',
+                'count' => 0,
+            ],
+            4 => [
+                'rating' => 'Decent Carrot',
+                'count' => 0,
+            ],
+            5 => [
+                'rating' => 'Bad Eggplant',
+                'count' => 0,
+            ],
+        ];
+
+        foreach($imdbRatings as $ratingData) {
+            if($ratingData['rating'] >= 9) {
+                $i = 0;
+            }elseif($ratingData['rating'] >= 7.9) {
+                $i = 1;
+            }elseif($ratingData['rating'] >= 6) {
+                $i = 2;
+            }elseif($ratingData['rating'] >= 5) {
+                $i = 3;
+            }elseif($ratingData['rating'] >= 4) {
+                $i = 4;
+            }elseif($ratingData['rating'] >= 1) {
+                $i = 5;
+            }
+
+            $transRatings[$i]['count'] += 1;
+        }
+
+        // sort the ratings by count in descending order
+        usort($transRatings, function($item1, $item2) {
+            return $item2['count'] <=> $item1['count'];
+        });
+        return $transRatings;
+    }
+
     public function getAllData(): array
     {
         return [
