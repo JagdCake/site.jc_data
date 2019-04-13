@@ -94,7 +94,7 @@ class MovieRepository extends ServiceEntityRepository
         return $fieldQuery->getScalarResult();
     }
 
-    public function getYears(): array
+    public function getDecades(): array
     {
         $entityManager = $this->getEntityManager();
 
@@ -149,7 +149,7 @@ class MovieRepository extends ServiceEntityRepository
             'topActors' => $this->getPrincipals('top_actors'),
             'topDirectors' => $this->getPrincipals('directors'),
             'topYear' => $this->getField('year_of_release', 'year', 1),
-            'decades' => $this->getYears(),
+            'decades' => $this->getDecades(),
         ];
     }
     // /**
