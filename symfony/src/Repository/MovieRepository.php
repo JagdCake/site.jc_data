@@ -148,6 +148,7 @@ class MovieRepository extends ServiceEntityRepository
             'topGenres' => $this->getField('genre', 'genre'),
             'topActors' => $this->getPrincipals('top_actors'),
             'topDirectors' => $this->getPrincipals('directors'),
+            'topYear' => $this->getField('year_of_release', 'year', 1),
             'decades' => $this->getYears(),
         ];
     }
