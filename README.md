@@ -11,8 +11,9 @@
 - download [composer](https://getcomposer.org/download/) and [install](https://getcomposer.org/doc/00-intro.md#globally) it globally
 - run `composer install` 
 
-#### Database:
-- open `.env` and edit `DATABASE_URL="db_driver://db_user:db_password@db_host:db_port/db_name"`, e.g. `postgres://jagdcake:password@127.0.0.1:5432/movies`
+#### Database
+- make sure you have PostgreSQL (version 10) installed and running
+- open [.env](./.env) and edit `DATABASE_URL="db_driver://db_user:db_password@db_host:db_port/db_name"`, to e.g. `postgres://jagdcake:password@127.0.0.1:5432/movies`
 - download the movie data [database dump](https://github.com/JagdCake/site.movies/blob/master/database_dump.movies.tar.xz)
 - extract it `tar -xavf database_dump.movies.tar.xz`
 - import the database dump using `psql -U db_user -d db_name -1 -f movies_dump`
