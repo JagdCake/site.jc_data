@@ -18,7 +18,7 @@ class MovieDataController extends AbstractController
     public function index(MovieRepository $repo): Response
     {
         return $this->render('movie_data/index.html.twig', [
-            'movieData' => $repo->getAllData(),
+            'movieData' => $repo->allData(),
         ]);
     }
 
@@ -28,7 +28,7 @@ class MovieDataController extends AbstractController
     public function generateStaticSite(MovieRepository $repo): Response
     {
         $content = $this->renderView('movie_data/index.html.twig', [
-            'movieData' => $repo->getAllData(),
+            'movieData' => $repo->allData(),
         ]);
 
         $file = file_put_contents('../docs/index.html', $content);

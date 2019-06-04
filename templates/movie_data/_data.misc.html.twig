@@ -1,10 +1,10 @@
 <article id="1" class="bg-light-gray tl ph4 w-60-m w-25-l ma4-ns ba-ns bw1-ns self-start-ns">
     <a href="#1" class="db tc w1 h1 center"></a>
     <section class="pv2">
-        <p>From <time datetime="2016-06" class="code pa1 bg-dark-purple light-gray b">June 2016</time> until <time datetime="{{ movieData.lastUpdate }}" class="code pa1 bg-dark-purple light-gray b">{{ movieData.lastUpdate | date('M d Y') }}</time>, I've watched <strong class="code pa1 bg-dark-purple light-gray">{{ movieData.numberOfMovies }} movies</strong>.</p>
+        <p>From <time datetime="2016-06" class="code pa1 bg-dark-purple light-gray b">June 2016</time> until <time datetime="{{ movieData.dateOfLastUpdate }}" class="code pa1 bg-dark-purple light-gray b">{{ movieData.dateOfLastUpdate | date('M d Y') }}</time>, I've watched <strong class="code pa1 bg-dark-purple light-gray">{{ movieData.totalNumberOfMovies }} movies</strong>.</p>
    </section>
 
-    {% set difference = date(movieData.lastUpdate).diff(date('2016-06-01')) %}
+    {% set difference = date(movieData.dateOfLastUpdate).diff(date('2016-06-01')) %}
     {% set percentOfTotalDays = ((movieData.totalTimeSpent.days / difference.days) * 100) | round(1) %}
     <section class="pv2 bt bb-0 bl-0 br-0 bw1 b--dashed">
         <p>Out of <time datetime="{{ difference.days }}d" class="code pa1 bg-dark-purple light-gray b">{{ difference.days }}</time> days, I've spent <time datetime="{{ movieData.totalTimeSpent.days }}d" class="code pa1 bg-dark-purple light-gray b">{{ movieData.totalTimeSpent.days }}</time> watching films. That's <em class="code pa1 bg-dark-purple light-gray b fs-normal">{{ percentOfTotalDays }}%</em> of my time.</p>

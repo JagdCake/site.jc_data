@@ -20,7 +20,7 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
-    public function getNumberOfMovies(): string
+    public function totalNumberOfMovies(): string
     {
         $entityManager = $this->getEntityManager();
 
@@ -32,7 +32,7 @@ class MovieRepository extends ServiceEntityRepository
         return $countQuery->getSingleScalarResult();
     }
 
-    public function getLastUpdate(): string
+    public function dateOfLastUpdate(): string
     {
         $entityManager = $this->getEntityManager();
 
@@ -44,7 +44,7 @@ class MovieRepository extends ServiceEntityRepository
         return $lastUpdateQuery->getSingleScalarResult();
     }
 
-    public function getTotalTimeSpent(): array
+    public function totalTimeSpent(): array
     {
         $entityManager = $this->getEntityManager();
 
@@ -62,7 +62,14 @@ class MovieRepository extends ServiceEntityRepository
         ];
     }
 
-    public function getRuntime(string $mathFunc): array
+    /**
+     * Converts specific runtime value into hours and minutes
+     *
+     * @param string $mathFunc the SQL function (max, min, avg) to use to find a runtime value to convert
+     *
+     * @return array the runtime value converted from minutes into hours and minutes
+     */
+    public function runtime(string $mathFunc): array
     {
         $entityManager = $this->getEntityManager();
 
@@ -79,7 +86,16 @@ class MovieRepository extends ServiceEntityRepository
         ];
     }
 
-    public function getField(string $field, string $alias, int $results = 10): array
+    /**
+     * Finds a number of database field's values and their counts
+     *
+     * @param string $field the name of the database field to query for
+     * @param string $alias prettified field name
+     * @param int $results the number of query results
+     *
+     * @return array the top (by count) field values and their counts
+     */
+    public function fieldValueCount(string $field, string $alias, int $results = 10): array
     {
         $entityManager = $this->getEntityManager();
 
@@ -94,7 +110,12 @@ class MovieRepository extends ServiceEntityRepository
         return $fieldQuery->getScalarResult();
     }
 
-    public function getDecades(): array
+    /**
+     * Extracts the decade from every movie's release year and sorts the decades in descending order by count
+     *
+     * @return array the top 10 decades and their counts
+     */
+    public function decades(): array
     {
         $entityManager = $this->getEntityManager();
 
@@ -115,20 +136,28 @@ class MovieRepository extends ServiceEntityRepository
         return $decadesQuery->getScalarResult();
     }
 
-    public function getPrincipals(string $principals): array
+    /**
+     * principals = actors / directors
+     * Converts the comma separated names of principals into an array and sorts them in descending order by count
+     *
+     * @param string $field the name of a principals field (top_actors or directors)
+     *
+     * @return array the top 10 names of principals and their counts
+     */
+    public function principals(string $field): array
     {
         $entityManager = $this->getEntityManager();
 
         $rsm = new ResultSetMapping($entityManager);
         $rsm->addEntityResult('App\Entity\Movie', 'm');
-        $rsm->addFieldResult('m', $principals, $principals);
+        $rsm->addFieldResult('m', $field, $field);
         $rsm->addScalarResult('principal', 'principal');
         $rsm->addScalarResult('count', 'count');
 
         $topPrincipalsQuery = $entityManager->createNativeQuery(
-            "select unnest(string_to_array(".$principals.", ',')) as principal, count(*) as count
+            "select unnest(string_to_array(".$field.", ',')) as principal, count(*) as count
             from movie
-            group by unnest(string_to_array(".$principals.", ','))
+            group by unnest(string_to_array(".$field.", ','))
             order by count DESC
             limit 10",
             $rsm);
@@ -136,7 +165,7 @@ class MovieRepository extends ServiceEntityRepository
         return $topPrincipalsQuery->getScalarResult();
     }
 
-    public function getAllImdbRatings(): array
+    public function allImdbRatings(): array
     {
         $entityManager = $this->getEntityManager();
 
@@ -149,9 +178,14 @@ class MovieRepository extends ServiceEntityRepository
         return $imdbRatingsQuery->getScalarResult();
     }
 
-    public function translateImdbRatings(): array
+    /**
+     * Translates IMDb ratings into my rating system
+     *
+     * @return array $transRatings the translated rating values and their counts
+     */
+    public function translatedImdbRatings(): array
     {
-        $imdbRatings = $this->getAllImdbRatings();
+        $imdbRatings = $this->allImdbRatings();
 
         $transRatings = [
             0 => [
@@ -205,7 +239,14 @@ class MovieRepository extends ServiceEntityRepository
         return $transRatings;
     }
 
-    public function calcRatingsScore(array $ratings): int
+    /**
+     * Generates a numeric score by scoring every rating (from my rating system) with a number in the range 1–6
+     *
+     * @param array $ratings ratings data
+     *
+     * @return int $score the total score of the ratings data
+     */
+    public function ratingsScore(array $ratings): int
     {
         // points score
         $score = 0;
@@ -231,10 +272,15 @@ class MovieRepository extends ServiceEntityRepository
         return $score;
     }
 
-    public function compareRatingScores(): string
+    /**
+     * Determines how IMDb users rate movies compared to me
+     *
+     * @return string $ratingAdjective
+     */
+    public function ratingsScoreComparison(): string
     {
-        $imdbScore = $this->calcRatingsScore($this->translateImdbRatings());
-        $myScore = $this->calcRatingsScore($this->getField('my_rating', 'rating'));
+        $imdbScore = $this->ratingsScore($this->translatedImdbRatings());
+        $myScore = $this->ratingsScore($this->fieldValueCount('my_rating', 'rating'));
 
         if($imdbScore > $myScore) {
             $ratingAdjective = 'higher';
@@ -247,23 +293,23 @@ class MovieRepository extends ServiceEntityRepository
         return $ratingAdjective;
     }
 
-    public function getAllData(): array
+    public function allData(): array
     {
         return [
-            'numberOfMovies' => $this->getNumberOfMovies(),
-            'lastUpdate' => $this->getLastUpdate(),
-            'totalTimeSpent' => $this->getTotalTimeSpent(),
-            'longestMovie' => $this->getRuntime('max'),
-            'shortestMovie' => $this->getRuntime('min'),
-            'averageRuntime' => $this->getRuntime('avg'),
-            'topGenres' => $this->getField('genre', 'genre'),
-            'topActors' => $this->getPrincipals('top_actors'),
-            'topDirectors' => $this->getPrincipals('directors'),
-            'topYear' => $this->getField('year_of_release', 'year', 1),
-            'decades' => $this->getDecades(),
-            'myRatings' => $this->getField('my_rating', 'rating'),
-            'imdbRatings' => $this->translateImdbRatings(),
-            'ratingAdjective' => $this->compareRatingScores(),
+            'totalNumberOfMovies' => $this->totalNumberOfMovies(),
+            'dateOfLastUpdate' => $this->dateOfLastUpdate(),
+            'totalTimeSpent' => $this->totalTimeSpent(),
+            'longestMovie' => $this->runtime('max'),
+            'shortestMovie' => $this->runtime('min'),
+            'averageRuntime' => $this->runtime('avg'),
+            'topGenres' => $this->fieldValueCount('genre', 'genre'),
+            'topActors' => $this->principals('top_actors'),
+            'topDirectors' => $this->principals('directors'),
+            'topYear' => $this->fieldValueCount('year_of_release', 'year', 1),
+            'decades' => $this->decades(),
+            'myRatings' => $this->fieldValueCount('my_rating', 'rating'),
+            'imdbRatings' => $this->translatedImdbRatings(),
+            'ratingAdjective' => $this->ratingsScoreComparison(),
         ];
     }
     // /**
