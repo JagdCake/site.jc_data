@@ -4,6 +4,7 @@
 .PHONY: copy-files-to-prod
 .PHONY: generate-html
 .PHONY: uncomment-csp
+.PHONY: fix-filepaths
 .PHONY: build-html
 .PHONY: build-css
 .PHONY: optimize-images
@@ -31,9 +32,9 @@ optimize.png = optipng -o5
 test.php = bin/phpunit --testdox
 test.php.files =
 
-all: test create-prod-dir copy-files-to-prod generate-html uncomment-csp build-html build-css optimize-images
+all: test create-prod-dir copy-files-to-prod generate-html uncomment-csp fix-filepaths build-html build-css optimize-images
 
-data-update: test generate-html uncomment-csp build-html
+data-update: test generate-html uncomment-csp fix-filepaths build-html
 
 create-prod-dir:
 	mkdir $(dir.prod)/
@@ -54,6 +55,9 @@ generate-html:
 uncomment-csp:
 	sed -i 's/<!-- <meta http-equiv="Content-Security-Policy"/<meta http-equiv="Content-Security-Policy"/' $(html.prod)
 	sed -i 's/upgrade-insecure-requests"> -->/upgrade-insecure-requests">/' $(html.prod)
+
+fix-filepaths:
+	sed -i 's/\/css\/tachyons.min.css/css\/tachyons.min.css/g' $(html.prod)
 
 build-html:
 	$(minify.html) --input-dir $(dir.prod)/ --output-dir $(dir.prod)/
