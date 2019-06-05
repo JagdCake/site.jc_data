@@ -18,6 +18,17 @@ class MovieRepositoryTest extends KernelTestCase
              ->getManager();
     }
 
+    public function testFindsCorrectNumberOfMovies() {
+        $numOfMovies = $this->entityManager
+            ->getRepository(Movie::class)
+            ->totalNumberOfMovies();
+
+        $this->assertEquals(
+            '3',
+            $numOfMovies,
+        );
+    }
+
     protected function tearDown() {
         parent::tearDown();
 
