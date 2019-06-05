@@ -210,6 +210,19 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
+    public function testRatingScoresAreComparedCorrectly()
+    {
+        $ratingsAdjective = $this->entityManager
+            ->getRepository(Movie::class)
+            ->ratingsScoreComparison();
+
+        $this->assertEquals(
+            'lower',
+            $ratingsAdjective,
+            'IMDb users should give lower ratings because their translated ratings are 3 Bad Eggplants while mine are 3 Great Onions',
+        );
+    }
+
     protected function tearDown() {
         parent::tearDown();
 
