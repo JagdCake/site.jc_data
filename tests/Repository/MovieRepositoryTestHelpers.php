@@ -18,4 +18,12 @@ class MovieRepositoryTestHelpers
     {
         return $minutes % 60;
     }
+
+    public static function hoursAndMinutes(int $minutes): string
+    {
+        $hours = self::hours($minutes);
+        $remainingMinutes = self::remainingMinutes($minutes);
+
+        return $hours.$remainingMinutes;
+    }
 }
