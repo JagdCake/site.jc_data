@@ -23,3 +23,9 @@
 - generate a static page by going to `localhost:8000/generate`
 - go through the build process by following the steps outlined in [build_static_site.sh](./build_static_site.sh)
   - can't run the script itself without [this](https://github.com/JagdCake/bash.scripts/blob/master/scripts/build_web_project.sh) script which is just a wrapper around commands used to minify / optimize website assets
+
+## Testing
+- first update the `DATABASE_URL` for the test environment in [.env.test](./.env.test)
+- to set up the test environment — `cd tests/` and `make`
+- run `bin/phpunit` or `bin/phpunit --testdox` (displays an overview of the test cases)
+    - to run specific tests `bin/phpunit tests/SomeTestFile.php`, `bin/phpunit tests/SomeTestDirectory/` or `bin/phpunit --filter {someTestMethodName}`
