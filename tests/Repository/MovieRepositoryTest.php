@@ -30,7 +30,7 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
-    public function testCorrectlyCalculatesTimeSpent() {
+    public function testTimeSpentIsCorrect() {
         $timeSpent = $this->entityManager
             ->getRepository(Movie::class)
             ->totalTimeSpent();
