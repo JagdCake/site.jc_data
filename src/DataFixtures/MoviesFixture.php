@@ -14,7 +14,7 @@ class MoviesFixture extends Fixture
             $movie = new Movie();
             $movie->setImdbId('tt000000'.$i);
             $movie->setTitle('Test Movie '.$i);
-            $movie->setRuntime($i);
+            $movie->setRuntime(90 + $i);
             $movie->setGenre('testGenre');
             $movie->setImdbRating("1.$i");
             $movie->setYearOfRelease("200$i");
