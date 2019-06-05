@@ -11,7 +11,8 @@ class MovieRepositoryTest extends KernelTestCase
 
     private $entityManager;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $kernel = self::bootKernel();
 
         $this->entityManager = $kernel->getContainer()
@@ -19,7 +20,8 @@ class MovieRepositoryTest extends KernelTestCase
              ->getManager();
     }
 
-    public function testFindsCorrectNumberOfMovies() {
+    public function testFindsCorrectNumberOfMovies()
+    {
         $numOfMovies = $this->entityManager
             ->getRepository(Movie::class)
             ->totalNumberOfMovies();
@@ -30,7 +32,8 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
-    public function testTimeSpentIsCorrect() {
+    public function testTimeSpentIsCorrect()
+    {
         $timeSpent = $this->entityManager
             ->getRepository(Movie::class)
             ->totalTimeSpent();
@@ -57,7 +60,8 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
-    public function testCorrectlyCalculatesRuntime() {
+    public function testCorrectlyCalculatesRuntime()
+    {
         $repo = $this->entityManager
             ->getRepository(Movie::class);
 
@@ -223,7 +227,8 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
-    protected function tearDown() {
+    protected function tearDown()
+    {
         parent::tearDown();
 
         $this->entityManager->close();
