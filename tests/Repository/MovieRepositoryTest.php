@@ -112,6 +112,27 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
+    public function testExtractingDecadesWorks()
+    {
+        $decades = $this->entityManager
+            ->getRepository(Movie::class)
+            ->decades();
+
+        // all data fixture movies are released in the 2000s
+        $fixtureMoviesDecade = 200;
+        $fixtureMoviesDecadeCount = 3;
+
+        $this->assertEquals(
+            $fixtureMoviesDecade,
+            $decades[0]['decade'],
+        );
+
+        $this->assertEquals(
+            $fixtureMoviesDecadeCount,
+            $decades[0]['count'],
+        );
+    }
+
     protected function tearDown() {
         parent::tearDown();
 
