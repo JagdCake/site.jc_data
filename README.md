@@ -20,9 +20,9 @@
 
 ## Development
 - start the development server with `bin/console server:run` or `php bin/console server:run`
-- generate a static page by going to `localhost:8000/generate`
-- go through the build process by following the steps outlined in [build_static_site.sh](./build_static_site.sh)
-  - can't run the script itself without [this](https://github.com/JagdCake/bash.scripts/blob/master/scripts/build_web_project.sh) script which is just a wrapper around commands used to minify / optimize website assets
+- make your changes and inspect them on the server 
+- to generate and build the static site — `make` from the root dir
+    - make sure to install the tools (can be found in the Makefile) used to minify / optimize website assets
 
 ## Testing
 - first update the `DATABASE_URL` for the test environment in [.env.test](./.env.test)
