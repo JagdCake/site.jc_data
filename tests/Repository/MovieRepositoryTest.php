@@ -153,6 +153,23 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
+    public function testTranslatingImdbRatingsWorks()
+    {
+        $transRatings = $this->entityManager
+            ->getRepository(Movie::class)
+            ->translatedImdbRatings();
+
+        $this->assertEquals(
+            // all data fixture movies have IMDb ratings under 4.0 which I consider to be a 'Bad Eggplant'
+            3,
+            // in the $transRatings array 'Bad Eggplant' is initialized at index 5
+            // but translatedImdbRatings() returns the array sorted by count, in descending order,
+            // which puts the 'Bad Eggplants' at index 0
+            $transRatings[0]['count'],
+            'The number of Bad Eggplants should equal the number of fixture movies because they are all rated < 4.0',
+        );
+    }
+
     protected function tearDown() {
         parent::tearDown();
 
