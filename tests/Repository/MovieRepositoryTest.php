@@ -170,6 +170,46 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
+    public function testCorrectlyCalculatesRatingsScore()
+    {
+        $repo = $this->entityManager
+            ->getRepository(Movie::class);
+            
+        $imdbRatings = [
+            0 => [
+                'rating' => 'Bad Eggplant',
+                'count' => '3',
+            ],
+        ];
+
+        $myRatings = [
+            0 => [
+                'rating' => 'Bad Eggplant',
+                'count' => '1',
+            ],
+            1 => [
+                'rating' => 'Decent Carrot',
+                'count' => '2',
+            ],
+        ];
+
+        $imdbScore = $repo->ratingsScore($imdbRatings);
+        $myScore = $repo->ratingsScore($myRatings);
+
+        $eggplantScore = 1;
+        $carrotScore = 2;
+
+        $this->assertEquals(
+            $imdbRatings[0]['count'] * $eggplantScore,
+            $imdbScore,
+        );
+
+        $this->assertEquals(
+            ($myRatings[0]['count'] * $eggplantScore) + ($myRatings[1]['count'] * $carrotScore),
+            $myScore,
+        );
+    }
+
     protected function tearDown() {
         parent::tearDown();
 
