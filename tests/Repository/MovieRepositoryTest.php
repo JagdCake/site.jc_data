@@ -91,6 +91,27 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
+    public function testFieldValueCountsAreCorrect()
+    {
+        $repo = $this->entityManager
+            ->getRepository(Movie::class);
+
+        $topFixtureGenre = 'testGenre';
+        $topFixtureGenreCount = 3;
+
+        $topGenres = $repo->fieldValueCount('genre', 'genre');
+
+        $this->assertEquals(
+            $topFixtureGenre,
+            $topGenres[0]['genre'],
+        );
+
+        $this->assertEquals(
+            $topFixtureGenreCount,
+            $topGenres[0]['count'],
+        );
+    }
+
     protected function tearDown() {
         parent::tearDown();
 
