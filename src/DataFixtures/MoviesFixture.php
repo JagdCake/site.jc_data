@@ -20,7 +20,7 @@ class MoviesFixture extends Fixture
             $movie->setYearOfRelease("200$i");
             $movie->setDirectors(['Test Director']);
             $movie->setTopActors(['Test Actor 1', 'Test Actor 2']);
-            $movie->setMyRating('Test Onion');
+            $movie->setMyRating('Great Onion');
             $movie->setWatchedOn('0'.$i.' Apr 2019');
             $movie->setDiscussion('test link');
 
