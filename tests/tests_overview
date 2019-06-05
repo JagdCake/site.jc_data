@@ -1,0 +1,11 @@
+App\Tests\Repository\MovieRepository
+ [x] Finds correct number of movies
+ [x] Time spent is correct
+ [x] Correctly calculates runtime
+ [x] Field value counts are correct
+ [x] Extracting decades works
+ [x] Extracting principals works
+ [x] Translating imdb ratings works
+ [x] Correctly calculates ratings score
+ [x] Rating scores are compared correctly
+
