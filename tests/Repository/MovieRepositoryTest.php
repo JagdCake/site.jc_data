@@ -133,6 +133,26 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
+    public function testExtractingPrincipalsWorks()
+    {
+        $topActors = $this->entityManager
+            ->getRepository(Movie::class)
+            ->principals('top_actors');
+
+        $topFixtureActor = 'Test Actor 1'; // stars in all 3 data fixture movies
+        $topFixtureActorCount = 3;
+
+        $this->assertEquals(
+            $topFixtureActor,
+            $topActors[0]['principal'],
+        );
+
+        $this->assertEquals(
+            $topFixtureActorCount,
+            $topActors[0]['count'],
+        );
+    }
+
     protected function tearDown() {
         parent::tearDown();
 
