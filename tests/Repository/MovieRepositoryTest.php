@@ -57,6 +57,40 @@ class MovieRepositoryTest extends KernelTestCase
         );
     }
 
+    public function testCorrectlyCalculatesRuntime() {
+        $repo = $this->entityManager
+            ->getRepository(Movie::class);
+
+        // data fixture runtimes (minutes)
+        $longestFixtureRuntime = 92;
+        $shortestFixtureRuntime = 90;
+        $averageFixtureRuntime = 91;
+
+        $hoursAndMinutes = Helpers::hoursAndMinutes($longestFixtureRuntime);
+        $longestRuntime = $repo->runtime('max');
+
+        $this->assertEquals(
+            $hoursAndMinutes,
+            $longestRuntime['hours'].$longestRuntime['minutes'],
+        );
+
+        $hoursAndMinutes = Helpers::hoursAndMinutes($shortestFixtureRuntime);
+        $shortestRuntime = $repo->runtime('min');
+
+        $this->assertEquals(
+            $hoursAndMinutes,
+            $shortestRuntime['hours'].$shortestRuntime['minutes'],
+        );
+
+        $hoursAndMinutes = Helpers::hoursAndMinutes($averageFixtureRuntime);
+        $averageRuntime = $repo->runtime('avg');
+
+        $this->assertEquals(
+            $hoursAndMinutes,
+            $averageRuntime['hours'].$averageRuntime['minutes'],
+        );
+    }
+
     protected function tearDown() {
         parent::tearDown();
 
