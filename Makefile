@@ -34,7 +34,7 @@ test.php.files =
 
 all: test create-prod-dir copy-files-to-prod generate-html uncomment-csp fix-filepaths build-html build-css optimize-images
 
-data-update: test generate-html uncomment-csp fix-filepaths build-html
+data-update: test save-last-update generate-html uncomment-csp fix-filepaths build-html
 
 create-prod-dir:
 	mkdir $(dir.prod)/
@@ -44,6 +44,11 @@ create-prod-dir:
 copy-files-to-prod:
 	cp $(css.dev) $(css.prod)
 	cp -r $(dir.dev.images) $(dir.prod)/
+
+# finds the date of the last update and saves the data in a new file
+last-update := $(shell grep -o -P '\d{4}-\d{2}-\d{2}' $(html.prod))
+save-last-update:
+	cp $(html.prod) $(dir.prod)/$(last-update).html
 
 # "sleep" gives the server some time to start
 generate-html:
