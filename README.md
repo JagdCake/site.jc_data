@@ -2,7 +2,7 @@
 
 ### In short:
 - I'm using data from my website [“I watched a Movie!”](https://movies.jagdcake.com/)
-- the data is stored in a PostgreSQL database (dump available [here](https://github.com/JagdCake/site.movies/blob/master/database_dump.movies.tar.xz)); most of the data processing functions are in the [repository](./src/Repository/MovieRepository.php) file 
+- the data is stored in a PostgreSQL database; most of the data processing functions are in the [repository](./src/Repository/MovieRepository.php) file
 - the information is visualized on a static website — [“JC Data”](https://data.jagdcake.com), generated using Symfony 4
 
 ## First Time Setup
@@ -14,7 +14,7 @@
 #### Database
 - make sure you have PostgreSQL (version 10) installed and running
 - open [.env](./.env) and edit `DATABASE_URL="db_driver://db_user:db_password@db_host:db_port/db_name"`, to e.g. `postgres://jagdcake:password@127.0.0.1:5432/movies`
-- download the movie data [database dump](https://github.com/JagdCake/site.movies/blob/master/database_dump.movies.tar.xz)
+- download movie data [database dump](https://github.com/JagdCake/i-watched-a-movie/releases)
 - extract it `tar -xavf database_dump.movies.tar.xz`
 - import the database dump using `psql -U db_user -d db_name -1 -f movies_dump`
 
