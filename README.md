@@ -9,7 +9,7 @@
 #### Symfony 4
 - make sure you have PHP (7.1.3+) installed
 - download [composer](https://getcomposer.org/download/) and [install](https://getcomposer.org/doc/00-intro.md#globally) it globally
-- run `composer install` 
+- run `composer install`
 
 #### Database
 - make sure you have PostgreSQL (version 10) installed and running
@@ -21,7 +21,7 @@
 
 ## Development
 - start the development server with `bin/console server:run` or `php bin/console server:run`
-- make your changes and inspect them on the server 
+- make your changes and inspect them on the server
 - to generate and build the static site — `make` from the root dir
     - make sure to install the tools (can be found in the Makefile) used to minify / optimize website assets
 
