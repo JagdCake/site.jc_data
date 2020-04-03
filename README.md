@@ -15,6 +15,7 @@
 - make sure you have PostgreSQL (version 10) installed and running
 - open [.env](./.env) and edit `DATABASE_URL="db_driver://db_user:db_password@db_host:db_port/db_name"`, to e.g. `postgres://jagdcake:password@127.0.0.1:5432/movies`
 - download movie data [database dump](https://github.com/JagdCake/i-watched-a-movie/releases)
+- create a database for the data `psql -d [DATABASE USER] -c "create database [DATABASE NAME]"`
 - extract it `tar -xavf database_dump.movies.tar.xz`
 - import the database dump using `psql -U db_user -d db_name -1 -f movies_dump`
 
